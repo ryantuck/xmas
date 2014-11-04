@@ -1,3 +1,5 @@
+// setting this temporarily, since mydb was the test db i created from the mongodb tutorial
+
 module.exports = {
-	url : 'mongodb://<user>:<pass>@mongo.onmodulus.net:27017/uw45mypu'
+  url: 'mongodb://localhost/mydb'
 }
