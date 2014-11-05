@@ -1,6 +1,19 @@
+<!-- Presents View -->
+
 <div>
   <h1>Presents</h1>
-  <h3>{{intro}}</h3>
+  <p>{{intro}}</p>
   <p>{{tagline}}</p>
-  <p>you want {{numPresents}} presents</p>
+  <p>you want {{getTotalPresents}} presents</p>
+
+
+  <h3>List</h3>
+  <div ng-repeat="present in presents">
+    <p>{{present.priority}} -- {{present.title}}</p>
+  </div>
+
+  <h3>JSON</h3>
+  <p>{{presents}}</p>
+
+
 </div>
