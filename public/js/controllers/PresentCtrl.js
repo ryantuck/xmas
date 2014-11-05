@@ -4,15 +4,20 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	$scope.intro = 'hey dude get some prezzies.';
 
-	var p1 = new Present('halo 5');
+	var p1 = new Present('belt');
+	var p2 = new Present('chef knife');
+	var p3 = new Present('underwear!');
+	var p4 = new Present('dope cufflinks');
+
+	p1.priority = 1;
+	p2.priority = 3;
+	p3.priority = 2;
+	p4.priority = 1;
 
 
 	// Default set of presents
 	$scope.presents = [
-		{title: 'moleskine', priority: 1},
-		{title: 'chef knife', priority: 3},
-		{title: 'unders', priority: 2},
-		p1
+		p1,p2,p3,p4
 	];
 
 	$scope.getTotalPresents = function() {
