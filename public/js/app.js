@@ -5,5 +5,6 @@ angular.module('sampleApp',
   'NerdCtrl',
   'NerdService',
   'GeekCtrl',
-  'GeekService'
+  'GeekService',
+  'PresentCtrl'
 ]);
