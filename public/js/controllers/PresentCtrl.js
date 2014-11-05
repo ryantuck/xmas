@@ -2,7 +2,6 @@
 
 angular.module('PresentCtrl',[]).controller('PresentController',function($scope){
 
-	$scope.tagline = 'i want presents!';
 	$scope.intro = 'hey dude get some prezzies.';
 
 	// Default set of presents
@@ -16,5 +15,14 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope)
 		return $scope.presents.length;
 	};
 
+	$scope.addPresent = function() {
+		
+		$scope.presents.push({
+			title: $scope.formPresentText,
+			priority: 1
+		});
+
+		$scope.formPresentText = '';
+	};
 
 });
