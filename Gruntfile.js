@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 		// take all js files and minify them into app.min.js
 		uglify: {
 			options: {
-				mangle: false
+				mangle: false 	// *** this is necessary for allowing angular files to compile!
 			},
 			build: {
 				files: {
