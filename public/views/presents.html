@@ -15,10 +15,16 @@
     </span>
   </div>
 
+  <hr>
 
-  <div ng-repeat="present in presents">
-    <p>{{present.priority}} -- {{present.title}}</p>
-  </div>
+  <ul class="list-group">
+      <li class="list-group-item" ng-repeat="present in presents">
+      	<h3>{{present.title}}</h3>
+      	<p>asdf blah blah blah</p>
+      	<a href="http://ryantuck.io">link!</a>
+      </li>
+  </ul>
+
 
   <hr>
   <h3>JSON</h3>
