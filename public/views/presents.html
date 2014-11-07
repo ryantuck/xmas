@@ -19,21 +19,58 @@
 
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="present in presents">
-      <span>{{$index+1}}</span>
-      <div class="pull-right">
-        <button class="btn btn-primary">
-          <span class="glyphicon glyphicon-edit"></span>
-          Edit
-        </button>
-        <button class="btn btn-danger" ng-click="removePresent($index)">
-          <span class="glyphicon glyphicon-remove"></span>
-        </button>
+      <div class="row">
 
+      	<!-- Index -->
+        <div class="col-lg-2">
+          <h1 style="color:gray">{{$index + 1}} <span class="glyphicon glyphicon-resize-vertical"></span></h1>
+        </div>
+
+        <!-- Details -->
+        <div class="col-lg-10">
+
+          <!-- Item Details -->
+          <div ng-hide="editing">
+            <div class="pull-right">
+              <button class="btn btn-primary" ng-click="editing = true">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
+              <button class="btn btn-danger" ng-click="removePresent($index)">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </div>
+            <h3>{{present.title}}</h3>
+            <p>asdf blah blah blah</p>
+            <a href="http://ryantuck.io">link!</a>
+            <p>priority: {{present.priority}}</p>
+          </div>
+
+          <!-- Editing Version -->
+          <div ng-show="editing">
+            <form ng-submit="editing=false">
+              <div class="pull-right">
+                <button class="btn btn-success" type="submit">
+                  <span class="glyphicon glyphicon-ok"></span>
+                </button>
+                <button class="btn" ng-click="editing = false">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              </div>
+              <p style="color:gray;margin-bottom:0px;">Title</p>
+              <h3 style="margin-top:0px">
+                <input ng-model="present.title" placeholder="present.title" ng-required />
+              </h3>
+              <p style="color:gray;margin-bottom:0px">Notes</p>
+              <textarea style="margin-top:0px" ng-model="present.notes" placeholder="present.notes"></textarea>
+              <p style="color:gray;margin-bottom:0px">Link</p>
+              <input style="margin-top:0px" ng-model="present.link" placeholder="www.amazon.com/..." />
+              <p>priority: {{present.priority}}</p>
+            </form>
+          </div>
+        </div>
       </div>
-      <h3>{{present.title}}</h3>
-      <p>asdf blah blah blah</p>
-      <a href="http://ryantuck.io">link!</a>
-      <p>priority: {{present.priority}}</p>
+
+
     </li>
   </ul>
 
