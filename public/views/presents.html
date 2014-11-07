@@ -18,12 +18,23 @@
   <hr>
 
   <ul class="list-group">
-      <li class="list-group-item" ng-repeat="present in presents">
-      	<h3>{{present.title}}</h3>
-      	<p>asdf blah blah blah</p>
-      	<a href="http://ryantuck.io">link!</a>
-      	<p>priority: {{present.priority}}</p>
-      </li>
+    <li class="list-group-item" ng-repeat="present in presents">
+      <span>{{$index+1}}</span>
+      <div class="pull-right">
+        <button class="btn btn-primary">
+          <span class="glyphicon glyphicon-edit"></span>
+          Edit
+        </button>
+        <button class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+      </div>
+      <h3>{{present.title}}</h3>
+      <p>asdf blah blah blah</p>
+      <a href="http://ryantuck.io">link!</a>
+      <p>priority: {{present.priority}}</p>
+    </li>
   </ul>
 
 

@@ -8,16 +8,21 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	var p2 = new Present('chef knife');
 	var p3 = new Present('underwear!');
 	var p4 = new Present('dope cufflinks');
+	var p5 = new Present('The Art of Computer Programming (Knuth)');
+
 
 	p1.priority = 1;
 	p2.priority = 3;
 	p3.priority = 2;
 	p4.priority = 1;
+	p5.priority = 3;
+	p5.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
+
 
 
 	// Default set of presents
 	$scope.presents = [
-		p1,p2,p3,p4
+		p1,p2,p3,p4,p5
 	];
 
 	$scope.getTotalPresents = function() {
