@@ -39,8 +39,8 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.formPresentText = '';
 	};
 
-	$scope.removePresent = function(index) {
-
+	$scope.removePresent = function(idx) {
+		$scope.presents.splice(idx,1);
 	};
 
 });
