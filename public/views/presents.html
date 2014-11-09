@@ -1,28 +1,17 @@
 <!-- Presents View -->
 
 <div>
-  <h1>Presents</h1>
-  <p>{{intro}}</p>
-
-  <hr>
-
-  <h3>List ({{getTotalPresents()}})</h3>
-
-
-  <div class="input-group col-lg-6">
-    <input type="text" class="form-control" placeholder="a new toy" ng-model="formPresentText">
-    <span class="input-group-btn">
-      <button class="btn btn-primary" ng-click="addPresent()" type="button">Add</button>
-    </span>
-  </div>
+  <h1>Santafy</h1>
+  <p>Santa isn't real. This is the next best thing.</p>
+  <p>Make your list, check it twice, and share it with your friends and family. No more shitty gifts.</p>
 
   <hr>
 
   <div class="row">
     <div class="col-lg-4">
 
-    	<h3>Add a Present</h3>
-    	<p>Your present will be added to the bottom of the list. Drag list items to reorder.</p>
+      <h3>Add a Present</h3>
+      <p>Your present will be added to the bottom of the list.</p>
       <form role="form" name="presentForm" ng-submit="addPresentFromForm()" novalidate>
         <div class="form-group form-group-lg">
           <label for="newPresentTitle">Title</label>
@@ -41,7 +30,8 @@
     </div>
     <div class="col-lg-8">
 
-
+      <h3>My List  |  {{getTotalPresents()}}</h3>
+      <p>Drag presents to reorder. Feel free to edit and delete.</p>
 
       <!-- List of presents! -->
       <ul ui-sortable ng-model="presents" class="list-group">
@@ -54,34 +44,20 @@
             </div>
 
             <!-- Details -->
-            <div class="col-lg-11">
+            <div class="col-lg-9">
 
               <!-- Item Details -->
               <div ng-hide="editing">
-                <div class="pull-right">
-                  <button class="btn btn-primary" ng-click="editing = true">
-                    <span class="glyphicon glyphicon-edit"></span>
-                  </button>
-                  <button class="btn btn-danger" ng-click="removePresent($index)">
-                    <span class="glyphicon glyphicon-trash"></span>
-                  </button>
-                </div>
                 <h3>{{present.title}}</h3>
                 <p>{{present.notes}}</p>
                 <a href="{{present.link}}">link</a>
               </div>
 
+
               <!-- Editing Version -->
               <div ng-show="editing">
                 <form ng-submit="editing=false">
-                  <div class="pull-right">
-                    <button class="btn btn-success" type="submit">
-                      <span class="glyphicon glyphicon-ok"></span>
-                    </button>
-                    <button class="btn" ng-click="editing = false">
-                      <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                  </div>
+
                   <p style="color:gray;margin-bottom:0px;">Title</p>
                   <h3 style="margin-top:0px">
                     <input class="form-control" ng-model="present.title" placeholder="present.title" ng-required />
@@ -93,6 +69,31 @@
                 </form>
               </div>
             </div>
+
+            <div class="col-lg-2">
+              <div ng-hide="editing">
+                <div class="pull-right">
+                  <button class="btn btn-primary" ng-click="editing = true">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                  <button class="btn btn-danger" ng-click="removePresent($index)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                </div>
+              </div>
+              <div ng-show="editing">
+                <div class="pull-right">
+                  <button class="btn btn-success" type="submit">
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                  <button class="btn" ng-click="editing = false">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
           </div>
 
 
