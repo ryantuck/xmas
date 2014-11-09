@@ -3,8 +3,11 @@
 module.exports = function(grunt) {
 
 	var jsFiles = [
+		'public/libs/jquery/dist/jquery.js',
+		'public/libs/jquery-ui/jquery-ui.js',
 		'public/libs/angular/angular.min.js',
 		'public/libs/angular-route/angular-route.min.js',
+		'node_modules/angular-ui-sortable/src/sortable.js',
 		'public/js/**/*.js',
 		'public/js/*.js'
 		];

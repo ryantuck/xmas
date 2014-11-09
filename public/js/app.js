@@ -7,5 +7,6 @@ angular.module('sampleApp',
   'GeekCtrl',
   'GeekService',
   'PresentCtrl',
-  'PresentService'
+  'PresentService',
+  'ui.sortable'
 ]);
