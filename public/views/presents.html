@@ -22,12 +22,12 @@
       <div class="row">
 
       	<!-- Index -->
-        <div class="col-lg-2">
-          <h1 style="color:gray">{{$index + 1}} <span class="glyphicon glyphicon-resize-vertical"></span></h1>
+        <div class="col-lg-1">
+          <h1 style="color:gray">{{$index + 1}}</h1>
         </div>
 
         <!-- Details -->
-        <div class="col-lg-10">
+        <div class="col-lg-11">
 
           <!-- Item Details -->
           <div ng-hide="editing">
@@ -40,8 +40,8 @@
               </button>
             </div>
             <h3>{{present.title}}</h3>
-            <p>asdf blah blah blah</p>
-            <a href="http://ryantuck.io">link!</a>
+            <p>{{present.notes}}</p>
+            <a href="{{present.link}}">link</a>
           </div>
 
           <!-- Editing Version -->
