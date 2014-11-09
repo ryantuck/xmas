@@ -32,6 +32,19 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.formPresentText = '';
 	};
 
+	$scope.addPresentFromForm = function() {
+
+		$scope.presents.push({
+			title: $scope.newPresentTitle,
+			notes: $scope.newPresentNotes,
+			link: $scope.newPresentLink
+		});
+
+		$scope.newPresentTitle = '';
+		$scope.newPresentNotes = '';
+		$scope.newPresentLink = '';
+	};
+
 	$scope.removePresent = function(idx) {
 		$scope.presents.splice(idx,1);
 	};
