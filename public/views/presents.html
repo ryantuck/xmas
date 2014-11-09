@@ -66,7 +66,9 @@
               <div ng-hide="editing">
                 <h3>{{present.title}}</h3>
                 <p>{{present.notes}}</p>
+                <div ng-show="present.link">
                 <a href="{{present.link}}">link</a>
+                </div>
               </div>
 
 
