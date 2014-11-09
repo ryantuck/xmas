@@ -10,12 +10,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	var p4 = new Present('dope cufflinks');
 	var p5 = new Present('The Art of Computer Programming (Knuth)');
 
-
-	p1.priority = 1;
-	p2.priority = 3;
-	p3.priority = 2;
-	p4.priority = 1;
-	p5.priority = 3;
 	p5.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
 
 
@@ -33,7 +27,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		
 		$scope.presents.push({
 			title: $scope.formPresentText,
-			priority: 1
 		});
 
 		$scope.formPresentText = '';
