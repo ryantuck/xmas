@@ -1,3 +1,5 @@
 body { padding-top:30px; }
 
 .list-group {cursor:ns-resize;}
+
+.newPresentNotes {max-width:100%;}

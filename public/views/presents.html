@@ -8,6 +8,7 @@
 
   <h3>List ({{getTotalPresents()}})</h3>
 
+
   <div class="input-group col-lg-6">
     <input type="text" class="form-control" placeholder="a new toy" ng-model="formPresentText">
     <span class="input-group-btn">
@@ -17,61 +18,89 @@
 
   <hr>
 
-  <ul ui-sortable ng-model="presents" class="list-group">
-    <li class="list-group-item" ng-repeat="present in presents">
-      <div class="row">
+  <div class="row">
+    <div class="col-lg-4">
 
-      	<!-- Index -->
-        <div class="col-lg-1">
-          <h1 style="color:gray">{{$index + 1}}</h1>
+    	<h3>Add a Present</h3>
+    	<p>Your present will be added to the bottom of the list. Drag list items to reorder.</p>
+      <form role="form">
+        <div class="form-group form-group-lg">
+          <label for="newPresentTitle">Title</label>
+          <input type="text" id="newPresentTitle" class="form-control" placeholder="a new toy!" ng-required>
         </div>
+        <div class="form-group">
+          <label for="newPresentNotes">Notes</label>
+          <textarea type="text" id="newPresentNotes" class="form-control" placeholder="this is the coolest toy i've ever seen!"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="newPresentLink">Link</label>
+          <input type="url" id="newPresentLink" class="form-control" placeholder="www.amazon.com/...">
+        </div>
+        <button type="submit" class="btn btn-primary">Add to List!</button>
+      </form>
+    </div>
+    <div class="col-lg-8">
 
-        <!-- Details -->
-        <div class="col-lg-11">
 
-          <!-- Item Details -->
-          <div ng-hide="editing">
-            <div class="pull-right">
-              <button class="btn btn-primary" ng-click="editing = true">
-                <span class="glyphicon glyphicon-edit"></span>
-              </button>
-              <button class="btn btn-danger" ng-click="removePresent($index)">
-                <span class="glyphicon glyphicon-trash"></span>
-              </button>
+
+      <!-- List of presents! -->
+      <ul ui-sortable ng-model="presents" class="list-group">
+        <li class="list-group-item" ng-repeat="present in presents">
+          <div class="row">
+
+            <!-- Index -->
+            <div class="col-lg-1">
+              <h1 style="color:gray">{{$index + 1}}</h1>
             </div>
-            <h3>{{present.title}}</h3>
-            <p>{{present.notes}}</p>
-            <a href="{{present.link}}">link</a>
-          </div>
 
-          <!-- Editing Version -->
-          <div ng-show="editing">
-            <form ng-submit="editing=false">
-              <div class="pull-right">
-                <button class="btn btn-success" type="submit">
-                  <span class="glyphicon glyphicon-ok"></span>
-                </button>
-                <button class="btn" ng-click="editing = false">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </button>
+            <!-- Details -->
+            <div class="col-lg-11">
+
+              <!-- Item Details -->
+              <div ng-hide="editing">
+                <div class="pull-right">
+                  <button class="btn btn-primary" ng-click="editing = true">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                  <button class="btn btn-danger" ng-click="removePresent($index)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                </div>
+                <h3>{{present.title}}</h3>
+                <p>{{present.notes}}</p>
+                <a href="{{present.link}}">link</a>
               </div>
-              <p style="color:gray;margin-bottom:0px;">Title</p>
-              <h3 style="margin-top:0px">
-                <input ng-model="present.title" placeholder="present.title" ng-required />
-              </h3>
-              <p style="color:gray;margin-bottom:0px">Notes</p>
-              <textarea style="margin-top:0px" ng-model="present.notes" placeholder="present.notes"></textarea>
-              <p style="color:gray;margin-bottom:0px">Link</p>
-              <input style="margin-top:0px" ng-model="present.link" placeholder="www.amazon.com/..." />
-            </form>
+
+              <!-- Editing Version -->
+              <div ng-show="editing">
+                <form ng-submit="editing=false">
+                  <div class="pull-right">
+                    <button class="btn btn-success" type="submit">
+                      <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                    <button class="btn" ng-click="editing = false">
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                  </div>
+                  <p style="color:gray;margin-bottom:0px;">Title</p>
+                  <h3 style="margin-top:0px">
+                    <input class="form-control" ng-model="present.title" placeholder="present.title" ng-required />
+                  </h3>
+                  <p style="color:gray;margin-bottom:0px">Notes</p>
+                  <textarea class="form-control" style="margin-top:0px" ng-model="present.notes" placeholder="present.notes"></textarea>
+                  <p style="color:gray;margin-bottom:0px">Link</p>
+                  <input class="form-control" style="margin-top:0px" ng-model="present.link" placeholder="www.amazon.com/..." />
+                </form>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
 
-    </li>
-  </ul>
+        </li>
+      </ul>
 
+    </div>
+  </div>
 
   <hr>
   <h3>JSON</h3>
