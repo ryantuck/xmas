@@ -12,6 +12,12 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	p5.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
 
+	$scope.tmpPresent = {
+		title: '',
+		notes: '',
+		link: ''
+	};
+
 
 
 	// Default set of presents
@@ -49,4 +55,38 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.presents.splice(idx,1);
 	};
 
+	$scope.updatePresent = function(idx) {
+		$scope.presents[idx].title = $scope.tmpPresent.title;
+		$scope.presents[idx].notes = $scope.tmpPresent.notes;
+		$scope.presents[idx].link = $scope.tmpPresent.link;
+
+		console.log($scope.presents[idx].title);
+
+		$scope.tmpPresent.title = '';
+		$scope.tmpPresent.notes = '';
+		$scope.tmpPresent.link = '';
+
+		
+	};
+
+	$scope.openEditDialog = function(idx) {
+
+		// close any other open edit dialogs
+
+		$scope.tmpPresent.title = $scope.presents[idx].title;
+		$scope.tmpPresent.notes = $scope.presents[idx].notes;
+		$scope.tmpPresent.link = $scope.presents[idx].link;
+
+		console.log($scope.tmpPresent.title);
+	};
+
+
+
+
+
+
 });
+
+
+
+

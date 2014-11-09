@@ -2,7 +2,7 @@
 
 <div>
 
-	<!-- Header -->
+  <!-- Header -->
   <h1>Santafy</h1>
   <p>Santa isn't real. This is the next best thing.</p>
   <p>Make your list, check it twice, and share it with your friends and family. No more shitty gifts.</p>
@@ -12,7 +12,7 @@
   <!-- Main Body -->
   <div class="row">
 
-  	<!-- Add Present Form -->
+    <!-- Add Present Form -->
     <div class="col-lg-4">
       <h3>Add a Present</h3>
       <p>Your present will be added to the bottom of the list.</p>
@@ -21,7 +21,7 @@
       <!-- Form -->
       <form role="form" name="presentForm" ng-submit="addPresentFromForm()" novalidate>
 
-      	<!-- title -->
+        <!-- title -->
         <div class="form-group form-group-lg">
           <label for="newPresentTitle">Title</label>
           <input type="text" name="title" id="newPresentTitle" ng-model="newPresentTitle" class="form-control" placeholder="a new toy!" required>
@@ -45,14 +45,14 @@
     <!-- List Column -->
     <div class="col-lg-8">
 
-      <h3>My List  |  {{getTotalPresents()}}</h3>
+      <h3>My List | {{getTotalPresents()}}</h3>
       <p>Drag presents to reorder. Feel free to edit and delete.</p>
       <hr>
 
       <!-- List of presents! -->
       <ul ui-sortable ng-model="presents" class="list-group">
 
-      	<!-- specific present -->
+        <!-- specific present -->
         <li class="list-group-item" ng-repeat="present in presents">
           <div class="row">
 
@@ -72,16 +72,20 @@
 
               <!-- Editing Version -->
               <div ng-show="editing">
-                <form ng-submit="editing=false">
-                	
-                  <p style="color:gray;margin-bottom:0px;">Title</p>
-                  <h3 style="margin-top:0px">
-                    <input class="form-control" ng-model="present.title" placeholder="present.title" ng-required />
-                  </h3>
-                  <p style="color:gray;margin-bottom:0px">Notes</p>
-                  <textarea class="form-control" style="margin-top:0px" ng-model="present.notes" placeholder="present.notes"></textarea>
-                  <p style="color:gray;margin-bottom:0px">Link</p>
-                  <input class="form-control" style="margin-top:0px" ng-model="present.link" placeholder="www.amazon.com/..." />
+                <form name="inlineForm">
+                  <div class="form-group">
+
+                    <label>Title</label>
+                    <input type="text" name="inlineTitle" class="form-control" ng-model="tmpPresent.title" placeholder="what it's called" ng-required />
+                  </div>
+                  <div class="form-group">
+                    <label>Notes</label>
+                    <textarea type="text" name="inlineNotes" class="form-control" ng-model="tmpPresent.notes" placeholder="i want this thing"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Link</label>
+                    <input type="text" name="inlineLink" class="form-control" ng-model="tmpPresent.link" placeholder="www.ebay.com/..." />
+                  </div>
                 </form>
               </div>
             </div>
@@ -89,12 +93,12 @@
             <!-- buttons -->
             <div class="col-lg-2">
 
-            	<!-- default -->
+              <!-- default -->
               <div ng-hide="editing">
                 <div class="pull-right">
 
-                	<!-- edit -->
-                  <button class="btn btn-primary" ng-click="editing = true">
+                  <!-- edit -->
+                  <button class="btn btn-primary" ng-click="editing = true; openEditDialog($index)">
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
 
@@ -102,7 +106,7 @@
                   <button class="btn btn-danger" ng-click="removePresent($index)">
                     <span class="glyphicon glyphicon-trash"></span>
                   </button>
-                  
+
                 </div>
               </div>
 
@@ -110,8 +114,8 @@
               <div ng-show="editing">
                 <div class="pull-right">
 
-                	<!-- save -->
-                  <button class="btn btn-success" type="submit">
+                  <!-- save -->
+                  <button class="btn btn-success" ng-click="updatePresent($index); editing=false;">
                     <span class="glyphicon glyphicon-ok"></span>
                   </button>
 
@@ -131,6 +135,10 @@
 
     </div>
   </div>
+
+  <p>inlineEditTitle: {{tmpPresent.title}}</p>
+  <p>inlineEditNotes: {{tmpPresent.notes}}</p>
+  <p>inlineEditLink: {{tmpPresent.link}}</p>
 
   <hr>
   <h3>JSON</h3>
