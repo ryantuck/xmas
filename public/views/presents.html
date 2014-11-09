@@ -63,7 +63,7 @@
 
             <!-- Details -->
             <div class="col-lg-9">
-              <div ng-hide="editing">
+              <div ng-hide="editing == $index">
                 <h3>{{present.title}}</h3>
                 <p>{{present.notes}}</p>
                 <div ng-show="present.link">
@@ -73,7 +73,7 @@
 
 
               <!-- Editing Version -->
-              <div ng-show="editing">
+              <div ng-show="editing == $index">
                 <form name="inlineForm">
                   <div class="form-group">
 
@@ -96,11 +96,11 @@
             <div class="col-lg-2">
 
               <!-- default -->
-              <div ng-hide="editing">
+              <div ng-hide="editing == $index">
                 <div class="pull-right">
 
                   <!-- edit -->
-                  <button class="btn btn-primary" ng-click="editing = true; openEditDialog($index)">
+                  <button class="btn btn-primary" ng-click="openEditDialog($index)">
                     <span class="glyphicon glyphicon-edit"></span>
                   </button>
 
@@ -113,16 +113,16 @@
               </div>
 
               <!-- editing -->
-              <div ng-show="editing">
+              <div ng-show="editing == $index">
                 <div class="pull-right">
 
                   <!-- save -->
-                  <button class="btn btn-success" ng-click="updatePresent($index); editing=false;">
+                  <button class="btn btn-success" ng-click="updatePresent($index)">
                     <span class="glyphicon glyphicon-ok"></span>
                   </button>
 
                   <!-- discard -->
-                  <button class="btn" ng-click="editing = false">
+                  <button class="btn" ng-click="clearEditing()">
                     <span class="glyphicon glyphicon-remove"></span>
                   </button>
 
@@ -138,9 +138,11 @@
     </div>
   </div>
 
-  <p>inlineEditTitle: {{tmpPresent.title}}</p>
-  <p>inlineEditNotes: {{tmpPresent.notes}}</p>
-  <p>inlineEditLink: {{tmpPresent.link}}</p>
+  <p>tmp title: {{tmpPresent.title}}</p>
+  <p>tmp notes: {{tmpPresent.notes}}</p>
+  <p>tmp link: {{tmpPresent.link}}</p>
+  <br>
+  <p>editing: {{editing}}</p>
 
   <hr>
   <h3>JSON</h3>

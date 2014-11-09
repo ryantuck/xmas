@@ -18,6 +18,8 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		link: ''
 	};
 
+	$scope.editing = null;
+
 
 
 	// Default set of presents
@@ -66,12 +68,15 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.tmpPresent.notes = '';
 		$scope.tmpPresent.link = '';
 
+		$scope.editing = null;
+
 		
 	};
 
 	$scope.openEditDialog = function(idx) {
 
 		// close any other open edit dialogs
+		$scope.editing = idx;
 
 		$scope.tmpPresent.title = $scope.presents[idx].title;
 		$scope.tmpPresent.notes = $scope.presents[idx].notes;
@@ -80,7 +85,9 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		console.log($scope.tmpPresent.title);
 	};
 
-
+	$scope.clearEditing = function() {
+		$scope.editing = null;
+	};
 
 
 
