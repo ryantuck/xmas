@@ -10,6 +10,12 @@ module.exports = function(app, passport) {
 		failureFlash : true
 	}));
 
+	app.post('/login',passport.authenticate('local-login', {
+		successRedirect : '/presents',
+		failureRedirect : '/login',
+		failureFlash : true
+	}));
+
 	// frontend routes =========================================================
 	// route to handle all angular requests
 	app.get('*', function(req, res) {
