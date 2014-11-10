@@ -21,6 +21,16 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		.when('/presents', {
 			templateUrl: 'views/presents.html',
 			controller: 'PresentController'
+		})
+
+		.when('/login', {
+			templateUrl: 'views/login.html',
+			controller: 'LoginController'
+		})
+
+		.when('/signup', {
+			templateUrl: 'views/signup.html',
+			controller: 'SignupController'
 		});
 
 	$locationProvider.html5Mode(true);

@@ -8,5 +8,7 @@ angular.module('sampleApp',
   'GeekService',
   'PresentCtrl',
   'PresentService',
-  'ui.sortable'
+  'ui.sortable',
+  'LoginCtrl',
+  'SignupCtrl'
 ]);
