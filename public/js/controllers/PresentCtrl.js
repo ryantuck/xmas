@@ -9,8 +9,10 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	var p3 = new Present('underwear!');
 	var p4 = new Present('dope cufflinks');
 	var p5 = new Present('The Art of Computer Programming (Knuth)');
+	var p6 = new Present('Coffee Joulies');
 
 	p5.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
+	p6.link = 'http://www.joulies.com/products/5-pack#';
 
 	$scope.tmpPresent = {
 		title: '',
@@ -24,7 +26,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	// Default set of presents
 	$scope.presents = [
-		p1,p2,p3,p4,p5
+		p1,p2,p3,p4,p5,p6
 	];
 
 	$scope.getTotalPresents = function() {
