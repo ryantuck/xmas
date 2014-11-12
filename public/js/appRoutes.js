@@ -13,6 +13,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'PresentController'
 		})
 
+		.when('/admin', {
+			templateUrl: 'views/admin.html',
+			controller: 'AdminController'
+		})
+
 		.when('/login', {
 			templateUrl: 'views/login.html',
 			controller: 'LoginController'

@@ -3,9 +3,10 @@
 var mongoose = require('mongoose');
 
 // define the present object
-var presentSchema = new Schema({
+var presentSchema = new mongoose.Schema({
 	title: String,
-	priority: int
+	notes: String,
+	link: String
 });
 
 module.exports = mongoose.model('Present',presentSchema);

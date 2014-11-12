@@ -1,0 +1,32 @@
+<div>
+  <h1>Admin Panel</h1>
+
+  <button ng-click="getUsers()" class="btn btn-default">Get users</button>
+  <button ng-click="getPresents()" class="btn btn-default">Get presents</button>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Users</h2>
+      <ul ng-model="users" class="list-group">
+        <li ng-repeat="user in users" class="list-group-item">
+          <h3>{{user.local.email}}</h3>
+          <p>{{user.local.password}}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h2>Presents</h2>
+      <ul ng-model="presents" class="list-group">
+        <li ng-repeat="present in presents" class="list-group-item">
+          <h3>{{present.title}}</h3>
+          <p>{{present.notes}}</p>
+          <p>{{present.link}}</p>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+
+</div>

@@ -6,5 +6,6 @@ angular.module('sampleApp',
   'PresentService',
   'ui.sortable',
   'LoginCtrl',
-  'SignupCtrl'
+  'SignupCtrl',
+  'AdminCtrl'
 ]);

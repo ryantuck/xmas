@@ -1,30 +1,34 @@
 // server.js
 
 // modules =================================================
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
+var express 				= require('express');
+var app 						= express();
 
-var passport = require('passport');
-var flash = require('connect-flash');
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
+var mongoose 				= require('mongoose');
+var bodyParser 			= require('body-parser');
+var methodOverride 	= require('method-override');
+var passport 				= require('passport');
+var flash 					= require('connect-flash');
+var morgan 					= require('morgan');
+var cookieParser 		= require('cookie-parser');
+var session 				= require('express-session');
+var db 							= require('./config/db');
 
 // configuration ===========================================
 
-// config files
-var db = require('./config/db');
+// connect mongoose to my database
 mongoose.connect(db.url);
 
-var Bear = require('./app/models/bear');
+// import mongoose models
+var Bear 		= require('./app/models/bear');
+var User 		= require('./app/models/user');
+var Present = require('./app/models/present');
 
-var port = process.env.PORT || 8080; // set our port
-// mongoose.connect(db.url); // connect to our mongoDB database (commented out after you enter in your own credentials)
+// set port
+var port = process.env.PORT || 8080;
 
-require('./config/passport')(passport) // pass in passport for configuration
+// configure passport by passing it into the config file
+require('./config/passport')(passport);
 
 // get all data/stuff of the body (POST) parameters
 app.use(bodyParser.json()); // parse application/json 
@@ -35,8 +39,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); // parse application/x-www-form-urlencoded
 
-app.use(morgan('dev'));
-app.use(cookieParser()); // read cookies (needed for auth)
+
+app.use(morgan('dev')); 	// outputs http activity in terminal
+app.use(cookieParser()); 	// read cookies (needed for auth)
 
 // passport stuff
 app.use(session({
@@ -49,11 +54,13 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // for flash messages stored in session
 
 
-
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 
+
 // api routes ==============================================
+
+
 var router = express.Router();
 
 // middleware to use for all requests
@@ -126,6 +133,47 @@ router.route('/bears/:bear_id')
     });
   });
 });
+
+
+
+
+// users/presents api stuff
+app.get('/api/presents', function(req,res) {
+	Present.find(function(err,presents) {
+		if (err)
+			res.send(err);
+		res.json(presents);
+	});
+});
+
+app.get('/api/users', function(req,res) {
+	User.find(function(err,users) {
+		if (err)
+			res.send(err);
+		res.json(users);
+	});
+});
+
+app.post('/api/presents', function(req,res) {
+	var p = new Present();
+	p.title = req.body.title;
+	p.notes = req.body.notes;
+	p.link = req.body.link;
+	p.save(function(err){
+		if (err)
+			res.send(err);
+		res.json({
+			message: 'present created!'
+		});
+	});
+});
+
+
+
+
+
+
+
 
 // registers routes
 app.use('/api', router);

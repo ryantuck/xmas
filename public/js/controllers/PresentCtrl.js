@@ -1,6 +1,6 @@
 // PresentCtrl.js
 
-angular.module('PresentCtrl',[]).controller('PresentController',function($scope,Present){
+angular.module('PresentCtrl',[]).controller('PresentController',function($scope,Present,$http){
 
 	$scope.intro = 'hey dude get some prezzies.';
 
@@ -38,6 +38,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		});
 
 		$scope.formPresentText = '';
+
 	};
 
 	$scope.addPresentFromForm = function() {
@@ -47,6 +48,18 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			notes: $scope.newPresentNotes,
 			link: $scope.newPresentLink
 		});
+
+		$http.post('/api/presents', { 
+			title: $scope.newPresentTitle,
+			notes: $scope.newPresentNotes,
+			link: $scope.newPresentLink
+		})
+			.success(function(data) {
+				console.log('hooray, present added!');
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
 
 		$scope.newPresentTitle = '';
 		$scope.newPresentNotes = '';
