@@ -22,8 +22,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	$scope.editing = null;
 
-
-
 	// Default set of presents
 	$scope.presents = [
 		p1,p2,p3,p4,p5,p6
