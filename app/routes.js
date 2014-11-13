@@ -17,6 +17,16 @@ module.exports = function(app, passport) {
 		failureFlash : true
 	}));
 
+	app.get('/hello', isLoggedIn, function(req, res) {
+    res.send(req.user);
+    console.log('user is logged in!');
+	});
+
+	app.get('/logout', function(req, res){
+	  req.logout();
+	  res.redirect('/');
+	});
+
 	// frontend routes =========================================================
 
 	// route to handle all angular requests
@@ -30,6 +40,6 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
-
+	console.log('not logged in');
 	res.redirect('/');
 }

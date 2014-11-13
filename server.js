@@ -249,12 +249,6 @@ app.get('/api/users/:user_id',function(req,res) {
 });
 
 
-
-
-
-
-
-
 // registers routes
 app.use('/api', router);
 
@@ -266,5 +260,6 @@ require('./app/routes')(app, passport); // pass our application into our routes
 
 // start app ===============================================
 app.listen(port);
+console.log('\n\n\n\n');
 console.log('Magic happens on port ' + port); // shoutout to the user
 exports = module.exports = app; // expose app

@@ -20,7 +20,7 @@
   <div class="container">
 
     <!-- HEADER -->
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
         <a class="navbar-brand" href="/">Home</a>
       </div>
@@ -37,7 +37,9 @@
         <li ng-class="{active: isActive('/signup')}">
           <a href="/signup">Sign up</a>
         </li>
-
+        <li ng-click="logOut()">
+          <a href="#">Log out</a>
+        </li>
       </ul>
     </nav>
 
