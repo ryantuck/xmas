@@ -217,6 +217,34 @@ app.delete('/api/users/:user_id',function(req,res) {
 
 
 
+app.put('/api/users/:user_id',function(req,res) {
+	
+	User.findById(req.params.user_id,function(err,user) {
+		if (err)
+			console.log(err);
+
+		console.log('adding pId: ' + req.body.pId);
+		user.presents.push(req.body.pId);
+
+		user.save(function(err) {
+			if (err)
+				console.log(err);
+			console.log('presents added to user');
+		});
+	});
+});
+
+app.get('/api/users/:user_id',function(req,res) {
+	User
+		.findById(req.params.user_id)
+		.populate('presents')
+		.exec(function(err,user) {
+			if (err) console.log(err);
+			console.log('user presents: ' + user.presents[0].title);
+			res.json(user);
+		});
+});
+
 
 
 

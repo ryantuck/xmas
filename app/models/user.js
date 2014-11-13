@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
 		email : String,
 		password : String
 	},
-	presents: []
+	presents: [ {type: mongoose.Schema.ObjectId, ref: 'Present'} ]
 
 });
 

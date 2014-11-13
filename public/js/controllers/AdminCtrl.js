@@ -79,6 +79,36 @@ angular.module('AdminCtrl',[]).controller('AdminController', function($scope,$ht
 			});
 	};
 
+	$scope.addPresentsToUser = function() {
+
+		var tmpId = $scope.users[1]._id;
+		var prId = $scope.presents[1]._id;
+
+		$http.put('/api/users/' + tmpId, {
+			pId : prId
+		})
+			.success(function(data) {
+				console.log(data);
+				$scope.getUsers();
+			})
+			.error(function(data){
+				console.log('error: ' + data);
+			});
+	};
+
+	$scope.getUserPresent1 = function() {
+
+		var tmpId = $scope.users[1]._id;
+
+		$http.get('/api/users/' + tmpId)
+			.success(function(data) {
+				console.log(data);
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+	};
+
 
 
 });
