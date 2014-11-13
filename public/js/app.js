@@ -7,5 +7,6 @@ angular.module('sampleApp',
   'ui.sortable',
   'LoginCtrl',
   'SignupCtrl',
-  'AdminCtrl'
+  'AdminCtrl',
+  'NavCtrl'
 ]);

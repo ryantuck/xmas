@@ -16,7 +16,7 @@
   <script src="dist/js/app.min.js"></script>
 </head>
 
-<body ng-app="sampleApp" ng-controller="MainController">
+<body ng-app="sampleApp" ng-controller="NavController">
   <div class="container">
 
     <!-- HEADER -->
@@ -25,16 +25,16 @@
         <a class="navbar-brand" href="/">Home</a>
       </div>
       <ul class="nav navbar-nav">
-        <li>
+        <li ng-class="{active: isActive('/admin')}">
           <a href="/admin">Admin</a>
         </li>
-        <li>
+        <li ng-class="{active: isActive('/presents')}">
           <a href="/presents">Presents</a>
         </li>
-        <li>
+        <li ng-class="{active: isActive('/login')}">
           <a href="/login">Login</a>
         </li>
-        <li>
+        <li ng-class="{active: isActive('/signup')}">
           <a href="/signup">Sign up</a>
         </li>
 
