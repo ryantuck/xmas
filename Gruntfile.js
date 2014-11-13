@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 			},
 			js: {
 				files: jsFiles,
-				tasks: ['uglify','minify']
+				tasks: ['uglify']
 			}
 		},
 

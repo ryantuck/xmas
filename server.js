@@ -137,7 +137,7 @@ router.route('/bears/:bear_id')
 
 
 
-// users/presents api stuff
+// GET presents
 app.get('/api/presents', function(req,res) {
 	Present.find(function(err,presents) {
 		if (err)
@@ -146,6 +146,7 @@ app.get('/api/presents', function(req,res) {
 	});
 });
 
+// GET users
 app.get('/api/users', function(req,res) {
 	User.find(function(err,users) {
 		if (err)
@@ -154,6 +155,7 @@ app.get('/api/users', function(req,res) {
 	});
 });
 
+// POST present
 app.post('/api/presents', function(req,res) {
 	var p = new Present();
 	p.title = req.body.title;
@@ -167,6 +169,53 @@ app.post('/api/presents', function(req,res) {
 		});
 	});
 });
+
+// POST user taken care of in appRoutes, and only during login.
+// EDIT user isn't necessary right now
+
+// EDIT present
+app.put('/api/presents/:present_id',function(req, res) {
+  Present.findById(req.params.present_id, function(err, present) {
+    if (err) res.send(err);
+    present.title = req.body.title;
+    present.notes = req.body.notes;
+    present.link = req.body.link;
+    present.save(function(err) {
+      if (err) res.send(err);
+      res.json({
+        message: 'present updated!'
+      });
+    });
+  });
+});
+
+// DELETE present
+app.delete('/api/presents/:present_id',function(req,res) {
+	Present.remove({
+		_id: req.params.present_id
+	}, function(err,present) {
+		if (err)
+			res.send(err);
+		res.json({
+			message: 'present successfully deleted'
+		});
+	});
+});
+
+// DELETE user
+app.delete('/api/users/:user_id',function(req,res) {
+	User.remove({
+		_id: req.params.user_id
+	}, function(err,user) {
+		if (err)
+			res.send(err);
+		res.json({
+			message: 'user successfully deleted'
+		});
+	});
+});
+
+
 
 
 

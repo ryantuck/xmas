@@ -1,6 +1,6 @@
 // PresentCtrl.js
 
-angular.module('PresentCtrl',[]).controller('PresentController',function($scope,Present,$http){
+angular.module('PresentCtrl',[]).controller('PresentController',function($scope,Present,$http,$filter){
 
 	$scope.intro = 'hey dude get some prezzies.';
 
@@ -26,6 +26,20 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	$scope.presents = [
 		p1,p2,p3,p4,p5,p6
 	];
+
+	$scope.getPresents = function () {
+
+		$http.get('/api/presents')
+			.success(function(data) {
+				$scope.presents = data;
+				console.log(data);
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+	};
+
+	$scope.getPresents();
 
 	$scope.getTotalPresents = function() {
 		return $scope.presents.length;
@@ -77,6 +91,23 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 		console.log($scope.presents[idx].title);
 
+		var tmpId = $scope.presents[idx]._id;
+
+		$http.put('/api/presents/' + tmpId, {
+			title: $scope.presents[idx].title,
+			notes: $scope.presents[idx].notes,
+			link: $scope.presents[idx].link
+		})
+			.success(function(data) {
+				console.log(data);
+				console.log('hooray, present was edited!');
+				$scope.getPresents();
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+
+
 		$scope.tmpPresent.title = '';
 		$scope.tmpPresent.notes = '';
 		$scope.tmpPresent.link = '';
@@ -100,6 +131,22 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	$scope.clearEditing = function() {
 		$scope.editing = null;
+	};
+
+
+
+	$scope.deletePresent = function(idx) {
+
+		var tmpId = $scope.presents[idx]._id;
+
+		$http.delete('/api/presents/' + tmpId)
+			.success(function(data) {
+				console.log(data);
+				$scope.getPresents();
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
 	};
 
 
