@@ -148,10 +148,13 @@ app.get('/api/presents', function(req,res) {
 
 // GET users
 app.get('/api/users', function(req,res) {
-	User.find(function(err,users) {
-		if (err)
-			res.send(err);
-		res.json(users);
+	User
+		.find()
+		.populate('presents')
+		.exec(function(err,users) {
+			if (err)
+				res.send(err);
+			res.json(users);
 	});
 });
 

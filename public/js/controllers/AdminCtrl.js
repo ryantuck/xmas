@@ -32,15 +32,15 @@ angular.module('AdminCtrl',[]).controller('AdminController', function($scope,$ht
 
 	$scope.editPresent = function() {
 
-		var tmpId = $scope.presents[0]._id;
-		$scope.presents[0].title = 'woooooooooo';
+		var tmpId = $scope.presents[1]._id;
+		$scope.presents[1].title = 'edited title';
 
 		console.log(tmpId);
 
 		$http.put('/api/presents/' + tmpId, {
-			title: $scope.presents[0].title,
-			notes: $scope.presents[0].notes,
-			link: $scope.presents[0].link
+			title: $scope.presents[1].title,
+			notes: $scope.presents[1].notes,
+			link: $scope.presents[1].link
 		})
 			.success(function(data) {
 				console.log(data);
@@ -107,6 +107,13 @@ angular.module('AdminCtrl',[]).controller('AdminController', function($scope,$ht
 			.error(function(data) {
 				console.log('error: ' + data);
 			});
+	};
+
+	$scope.printUser1Present0 = function() {
+
+		console.log('User 1 Present 0');
+		console.log($scope.users[1].presents[0].title);
+
 	};
 
 
