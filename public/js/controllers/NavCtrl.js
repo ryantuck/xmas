@@ -1,6 +1,7 @@
 // Nav Controller
 
 angular.module('NavCtrl', []).controller('NavController', function($scope, $location, $http) {
+  $scope.tagline = 'nevermind.';
 
   $scope.isActive = function(route) {
     return route === $location.path();
