@@ -45,16 +45,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		return $scope.presents.length;
 	};
 
-	$scope.addPresent = function() {
-		
-		$scope.presents.push({
-			title: $scope.formPresentText,
-		});
-
-		$scope.formPresentText = '';
-
-	};
-
 	$scope.addPresentFromForm = function() {
 
 		$scope.presents.push({
