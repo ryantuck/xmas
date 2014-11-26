@@ -38,6 +38,13 @@ userSchema.pre('save',function(next){
 
 	p2.link = 'http://www.joulies.com/products/5-pack#';
 	p3.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
+
+	p1.index = 0;
+	p2.index = 1;
+	p3.index = 2;
+	p4.index = 3;
+	p5.index = 4;
+
 	
 
 	var prez = [p1,p2,p3,p4,p5];

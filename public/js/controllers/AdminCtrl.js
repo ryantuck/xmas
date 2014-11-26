@@ -54,7 +54,7 @@ angular.module('AdminCtrl',[]).controller('AdminController', function($scope,$ht
 
 	$scope.deletePresent = function() {
 
-		var tmpId = $scope.presents[1]._id;
+		var tmpId = $scope.presents[0]._id;
 
 		$http.delete('/api/presents/' + tmpId)
 			.success(function(data) {
@@ -67,7 +67,7 @@ angular.module('AdminCtrl',[]).controller('AdminController', function($scope,$ht
 	};
 
 	$scope.deleteUser = function() {
-		var tmpId = $scope.users[1]._id;
+		var tmpId = $scope.users[0]._id;
 
 		$http.delete('/api/users/' + tmpId)
 			.success(function(data) {

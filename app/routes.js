@@ -48,6 +48,7 @@ module.exports = function(app, passport) {
         present.title = req.body.title;
         present.notes = req.body.notes;
         present.link = req.body.link;
+        present.index = req.body.index;
         present.save(function(err) {
           if (err) res.send(err);
           res.json({

@@ -6,7 +6,8 @@ var mongoose = require('mongoose');
 var presentSchema = new mongoose.Schema({
 	title: String,
 	notes: String,
-	link: String
+	link: String,
+	index: Number
 });
 
 module.exports = mongoose.model('Present',presentSchema);
