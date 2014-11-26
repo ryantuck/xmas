@@ -1,31 +1,9 @@
 // PresentCtrl.js
 
-angular.module('PresentCtrl',[]).controller('PresentController',function($scope,Present,$http,$filter){
+angular.module('PresentCtrl',[]).controller('PresentController',function($scope, $rootScope, $http, $filter, User){
 
 	$scope.intro = 'hey dude get some prezzies.';
-
-	var p1 = new Present('belt');
-	var p2 = new Present('chef knife');
-	var p3 = new Present('underwear!');
-	var p4 = new Present('dope cufflinks');
-	var p5 = new Present('The Art of Computer Programming (Knuth)');
-	var p6 = new Present('Coffee Joulies');
-
-	p5.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
-	p6.link = 'http://www.joulies.com/products/5-pack#';
-
-	$scope.tmpPresent = {
-		title: '',
-		notes: '',
-		link: ''
-	};
-
 	$scope.editing = null;
-
-	// Default set of presents
-	$scope.presents = [
-		p1,p2,p3,p4,p5,p6
-	];
 
 	$scope.getPresents = function () {
 
@@ -41,8 +19,13 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	$scope.getPresents();
 
-	$scope.getTotalPresents = function() {
+	$scope.totalPresents = function() {
 		return $scope.presents.length;
+	};
+
+	$scope.test = function() {
+		console.log($rootScope.activeUser);
+		console.log(User.userName());
 	};
 
 	$scope.addPresentFromForm = function() {
@@ -68,10 +51,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.newPresentTitle = '';
 		$scope.newPresentNotes = '';
 		$scope.newPresentLink = '';
-	};
-
-	$scope.removePresent = function(idx) {
-		$scope.presents.splice(idx,1);
 	};
 
 	$scope.updatePresent = function(idx) {

@@ -90,6 +90,18 @@ module.exports = function(app, passport) {
       });
   	});
 
+  userRouter.route('/active')
+    .get(function(req,res){
+      if (req.user)
+        User.findById(req.user._id).exec(function(err,user) {
+          if (err)
+            console.log(err);
+          res.json(user);
+        });
+      else
+        res.json({message: 'not logged in'});
+    });
+
  	userRouter.route('/:user_id')
  		.get(function(req,res){
  			User
@@ -140,7 +152,7 @@ module.exports = function(app, passport) {
 
 
   // Passport Shit ======================================
-  
+
   app.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/presents',
     failureRedirect: '/login',

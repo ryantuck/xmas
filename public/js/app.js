@@ -8,5 +8,6 @@ angular.module('sampleApp',
   'LoginCtrl',
   'SignupCtrl',
   'AdminCtrl',
-  'NavCtrl'
+  'NavCtrl',
+  'UserService'
 ]);

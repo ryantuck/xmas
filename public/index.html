@@ -22,23 +22,29 @@
     <!-- HEADER -->
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="/">Santafy</a>
       </div>
       <ul class="nav navbar-nav">
-        <li ng-class="{active: isActive('/admin')}">
+        <li ng-class="{active: isActive('/admin')}" ng-click="isLoggedIn()">
           <a href="/admin">Admin</a>
         </li>
-        <li ng-class="{active: isActive('/presents')}">
+        <li ng-class="{active: isActive('/presents')}" ng-click="isLoggedIn()">
           <a href="/presents">Presents</a>
         </li>
-        <li ng-class="{active: isActive('/login')}">
+        <li ng-class="{active: isActive('/login')}" ng-click="isLoggedIn()">
           <a href="/login">Login</a>
         </li>
-        <li ng-class="{active: isActive('/signup')}">
+        <li ng-class="{active: isActive('/signup')}" ng-click="isLoggedIn()">
           <a href="/signup">Sign up</a>
         </li>
         <li ng-click="logOut()">
           <a href="#">Log out</a>
+        </li>
+        <li ng-click="getActiveUser()">
+          <a href="#">test</a>
+        </li>
+        <li>
+          <a href="#">{{activeUser()}}</a>
         </li>
       </ul>
     </nav>
