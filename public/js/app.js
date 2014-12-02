@@ -2,13 +2,12 @@ angular.module('sampleApp',
 	['ngRoute',
   'appRoutes',
   'MainCtrl',
-  'NerdCtrl',
-  'NerdService',
-  'GeekCtrl',
-  'GeekService',
   'PresentCtrl',
   'PresentService',
   'ui.sortable',
   'LoginCtrl',
-  'SignupCtrl'
+  'SignupCtrl',
+  'AdminCtrl',
+  'NavCtrl',
+  'UserService'
 ]);

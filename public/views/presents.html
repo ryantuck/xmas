@@ -6,6 +6,7 @@
   <h1>Santafy</h1>
   <p>Santa isn't real. This is the next best thing.</p>
   <p>Make your list, check it twice, and share it with your friends and family. No more shitty gifts.</p>
+  <button class="btn btn-default" ng-click="test()">Test</button>
 
   <hr>
 
@@ -45,12 +46,12 @@
     <!-- List Column -->
     <div class="col-lg-8">
 
-      <h3>My List | {{getTotalPresents()}}</h3>
+      <h3>My List | {{totalPresents()}}</h3>
       <p>Drag presents to reorder. Feel free to edit and delete.</p>
       <hr>
 
       <!-- List of presents! -->
-      <ul ui-sortable ng-model="presents" class="list-group">
+      <ul ui-sortable="{update: sortPresents()}" ng-model="presents" class="list-group">
 
         <!-- specific present -->
         <li class="list-group-item" ng-repeat="present in presents">
@@ -105,7 +106,7 @@
                   </button>
 
                   <!-- delete -->
-                  <button class="btn btn-danger" ng-click="removePresent($index)">
+                  <button class="btn btn-danger" ng-click="deletePresent($index)">
                     <span class="glyphicon glyphicon-trash"></span>
                   </button>
 

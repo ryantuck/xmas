@@ -1,45 +1,75 @@
 // PresentCtrl.js
 
-angular.module('PresentCtrl',[]).controller('PresentController',function($scope,Present){
+angular.module('PresentCtrl',[]).controller('PresentController',function($scope, $rootScope, $http, $filter, User){
 
 	$scope.intro = 'hey dude get some prezzies.';
-
-	var p1 = new Present('belt');
-	var p2 = new Present('chef knife');
-	var p3 = new Present('underwear!');
-	var p4 = new Present('dope cufflinks');
-	var p5 = new Present('The Art of Computer Programming (Knuth)');
-	var p6 = new Present('Coffee Joulies');
-
-	p5.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
-	p6.link = 'http://www.joulies.com/products/5-pack#';
-
-	$scope.tmpPresent = {
-		title: '',
-		notes: '',
-		link: ''
-	};
-
 	$scope.editing = null;
 
+	$scope.getPresents = function () {
 
-
-	// Default set of presents
-	$scope.presents = [
-		p1,p2,p3,p4,p5,p6
-	];
-
-	$scope.getTotalPresents = function() {
-		return $scope.presents.length;
+		$http.get('/api/presents')
+			.success(function(data) {
+				$scope.presents = data;
+				console.log(data);
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
 	};
 
-	$scope.addPresent = function() {
-		
-		$scope.presents.push({
-			title: $scope.formPresentText,
-		});
+	$scope.getPresents();
 
-		$scope.formPresentText = '';
+	$scope.sortPresents = function(e,ui) { // need to pass in e, ui for sortable shit
+		console.log("sorting presents called");
+
+		if ($scope.preesents !== null)
+			$scope.resetPresentIndices();
+
+		console.log($scope.presents);
+
+	};
+
+	$scope.resetPresentIndices = function() {
+		
+		// update indices
+		for (var i = 0; i<$scope.presents.length; i++) {
+			$scope.presents[i].index = i;
+		}
+
+		// should save to DB here
+		// but, there's some bullshit issue if presentClientToDB is here
+		// currently located on Test button ng-click
+
+
+	};
+
+	$scope.presentClientToDB = function(a) {
+		
+		var asdf = $scope.presents[a]._id;
+
+		$http.put('/api/presents/' + asdf, {
+			title: $scope.presents[a].title,
+			notes: $scope.presents[a].notes,
+			link: $scope.presents[a].link,
+			index: $scope.presents[a].index
+		})
+			.success(function(data) {
+				console.log(data);
+				console.log('hooray, present was edited!');
+				$scope.getPresents();
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+	};
+
+	$scope.totalPresents = function() {
+		if ($scope.presents !== null)
+			return $scope.presents.length;
+	};
+
+	$scope.test = function() {
+		$scope.presentClientToDB(0);
 	};
 
 	$scope.addPresentFromForm = function() {
@@ -50,25 +80,53 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			link: $scope.newPresentLink
 		});
 
+		$http.post('/api/presents', { 
+			title: $scope.newPresentTitle,
+			notes: $scope.newPresentNotes,
+			link: $scope.newPresentLink
+		})
+			.success(function(data) {
+				console.log('hooray, present added!');
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+
 		$scope.newPresentTitle = '';
 		$scope.newPresentNotes = '';
 		$scope.newPresentLink = '';
-	};
-
-	$scope.removePresent = function(idx) {
-		$scope.presents.splice(idx,1);
 	};
 
 	$scope.updatePresent = function(idx) {
 		$scope.presents[idx].title = $scope.tmpPresent.title;
 		$scope.presents[idx].notes = $scope.tmpPresent.notes;
 		$scope.presents[idx].link = $scope.tmpPresent.link;
+		$scope.presents[idx].index = $scope.tmpPresent.index;
 
 		console.log($scope.presents[idx].title);
+
+		var tmpId = $scope.presents[idx]._id;
+
+		$http.put('/api/presents/' + tmpId, {
+			title: $scope.presents[idx].title,
+			notes: $scope.presents[idx].notes,
+			link: $scope.presents[idx].link,
+			index: $scope.presents[idx].index
+		})
+			.success(function(data) {
+				console.log(data);
+				console.log('hooray, present was edited!');
+				$scope.getPresents();
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+
 
 		$scope.tmpPresent.title = '';
 		$scope.tmpPresent.notes = '';
 		$scope.tmpPresent.link = '';
+		$scope.tmpPresent.index = '';
 
 		$scope.editing = null;
 
@@ -89,6 +147,22 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	$scope.clearEditing = function() {
 		$scope.editing = null;
+	};
+
+
+
+	$scope.deletePresent = function(idx) {
+
+		var tmpId = $scope.presents[idx]._id;
+
+		$http.delete('/api/presents/' + tmpId)
+			.success(function(data) {
+				console.log(data);
+				$scope.getPresents();
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
 	};
 
 

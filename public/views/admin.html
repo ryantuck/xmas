@@ -1,0 +1,39 @@
+<div>
+  <h1>Admin Panel</h1>
+
+  <button ng-click="getUsers()" class="btn btn-default">Get users</button>
+  <button ng-click="deleteUser()" class="btn btn-default">Delete user</button>
+  <button ng-click="getPresents()" class="btn btn-default">Get presents</button>
+  <button ng-click="editPresent()" class="btn btn-default">Edit a present</button>
+  <button ng-click="deletePresent()" class="btn btn-default">Delete a present</button>
+  <button ng-click="addPresentsToUser()" class="btn btn-default">Add presents to user</button>
+  <button ng-click="getUserPresent1()" class="btn btn-default">Get user present 1</button>
+  <button ng-click="printUser1Present0()" class="btn btn-default">prunt user1 present0</button>
+
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Users</h2>
+      <ul ng-model="users" class="list-group">
+        <li ng-repeat="user in users" class="list-group-item">
+          <h3>{{user.local.email}}</h3>
+          <p>{{user.local.password}}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h2>Presents</h2>
+      <ul ng-model="presents" class="list-group">
+        <li ng-repeat="present in presents" class="list-group-item">
+          <h3>{{present.title}}</h3>
+          <p>{{present.notes}}</p>
+          <p>{{present.link}}</p>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+
+</div>
