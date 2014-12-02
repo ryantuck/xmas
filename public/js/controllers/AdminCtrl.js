@@ -1,142 +1,129 @@
-
 // adminCtrl.js
 
-angular.module('AdminCtrl',[]).controller('AdminController', function($scope,$http) {
+angular.module('AdminCtrl', []).controller('AdminController', function($scope, $http) {
 
-	$scope.users = [];
-	$scope.presents = [];
+    $scope.users = [];
+    $scope.presents = [];
 
-	$scope.getUsers = function () {
+    var socket = io.connect('http://localhost:8080');
+    socket.on('news', function(data) {
+        console.log("omfg its working!");
+        console.log(data);
+        socket.emit('my other event', {
+            my: 'data'
+        });
+    });
 
-		$http.get('/api/users')
-			.success(function(data) {
-				$scope.users = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('error: ' + data);
-			});
-	};
+    $scope.getUsers = function() {
 
-	$scope.getPresents = function () {
+        $http.get('/api/users')
+            .success(function(data) {
+                $scope.users = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+    };
 
-		$http.get('/api/presents')
-			.success(function(data) {
-				$scope.presents = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('error: ' + data);
-			});
-	};
+    $scope.getPresents = function() {
 
-	$scope.editPresent = function() {
+        $http.get('/api/presents')
+            .success(function(data) {
+                $scope.presents = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+    };
 
-		var tmpId = $scope.presents[1]._id;
-		$scope.presents[1].title = 'edited title';
+    $scope.editPresent = function() {
 
-		console.log(tmpId);
+        var tmpId = $scope.presents[1]._id;
+        $scope.presents[1].title = 'edited title';
 
-		$http.put('/api/presents/' + tmpId, {
-			title: $scope.presents[1].title,
-			notes: $scope.presents[1].notes,
-			link: $scope.presents[1].link
-		})
-			.success(function(data) {
-				console.log(data);
-				console.log('hooray, present was edited!');
-				$scope.getPresents();
-			})
-			.error(function(data) {
-				console.log('error: ' + data);
-			});
-	};
+        console.log(tmpId);
 
-	$scope.deletePresent = function() {
+        $http.put('/api/presents/' + tmpId, {
+                title: $scope.presents[1].title,
+                notes: $scope.presents[1].notes,
+                link: $scope.presents[1].link
+            })
+            .success(function(data) {
+                console.log(data);
+                console.log('hooray, present was edited!');
+                $scope.getPresents();
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+    };
 
-		var tmpId = $scope.presents[0]._id;
+    $scope.deletePresent = function() {
 
-		$http.delete('/api/presents/' + tmpId)
-			.success(function(data) {
-				console.log(data);
-				$scope.getPresents();
-			})
-			.error(function(data) {
-				console.log('error: ' + data);
-			});
-	};
+        var tmpId = $scope.presents[0]._id;
 
-	$scope.deleteUser = function() {
-		var tmpId = $scope.users[0]._id;
+        $http.delete('/api/presents/' + tmpId)
+            .success(function(data) {
+                console.log(data);
+                $scope.getPresents();
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+    };
 
-		$http.delete('/api/users/' + tmpId)
-			.success(function(data) {
-				console.log(data);
-				$scope.getUsers();
-			})
-			.error(function(data) {
-				console.log('error: ' + data);
-			});
-	};
+    $scope.deleteUser = function() {
+        var tmpId = $scope.users[0]._id;
 
-	$scope.addPresentsToUser = function() {
+        $http.delete('/api/users/' + tmpId)
+            .success(function(data) {
+                console.log(data);
+                $scope.getUsers();
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+    };
 
-		var tmpId = $scope.users[1]._id;
-		var prId = $scope.presents[1]._id;
+    $scope.addPresentsToUser = function() {
 
-		$http.put('/api/users/' + tmpId, {
-			pId : prId
-		})
-			.success(function(data) {
-				console.log(data);
-				$scope.getUsers();
-			})
-			.error(function(data){
-				console.log('error: ' + data);
-			});
-	};
+        var tmpId = $scope.users[1]._id;
+        var prId = $scope.presents[1]._id;
 
-	$scope.getUserPresent1 = function() {
+        $http.put('/api/users/' + tmpId, {
+                pId: prId
+            })
+            .success(function(data) {
+                console.log(data);
+                $scope.getUsers();
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+    };
 
-		var tmpId = $scope.users[1]._id;
+    $scope.getUserPresent1 = function() {
 
-		$http.get('/api/users/' + tmpId)
-			.success(function(data) {
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('error: ' + data);
-			});
-	};
+        var tmpId = $scope.users[1]._id;
 
-	$scope.printUser1Present0 = function() {
+        $http.get('/api/users/' + tmpId)
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+    };
 
-		console.log('User 1 Present 0');
-		console.log($scope.users[1].presents[0].title);
+    $scope.printUser1Present0 = function() {
 
-	};
+        console.log('User 1 Present 0');
+        console.log($scope.users[1].presents[0].title);
+
+    };
 
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

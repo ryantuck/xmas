@@ -55,9 +55,23 @@ app.use(express.static(__dirname + '/public')); // set the static files location
 require('./app/routes')(app, passport); // pass our application into our routes
 
 
+// socket.io shit
+var svr = require('http').Server(app);
+var io = require('socket.io')(svr);
+
+svr.listen(port);
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+
+
 
 // start app ===============================================
-app.listen(port);
+//app.listen(port);
 console.log('\n\n\n\n');
 console.log('Magic happens on port ' + port); // shoutout to the user
 exports = module.exports = app; // expose app
