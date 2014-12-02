@@ -15,6 +15,7 @@ angular.module('NavCtrl', []).controller('NavController', function($scope, $root
       socket.emit('client connected', {
           message: 'connected up in angular dog!'
       });
+      $scope.getActiveUser();
   });
 
   // triggers at interval defined on server side
