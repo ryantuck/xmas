@@ -22,7 +22,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	$scope.sortPresents = function(e,ui) { // need to pass in e, ui for sortable shit
 		console.log("sorting presents called");
 
-		if ($scope.preesents !== null)
+		if ($scope.presents !== null)
 			$scope.resetPresentIndices();
 
 		console.log($scope.presents);

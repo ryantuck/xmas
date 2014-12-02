@@ -23,25 +23,25 @@
     <!-- HEADER -->
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Santafy</a>
+        <a class="navbar-brand" href="/">Listmas</a>
       </div>
       <ul class="nav navbar-nav">
-        <li ng-class="{active: isActive('/admin')}" ng-click="isLoggedIn()">
+        <li ng-class="{active: isActive('/admin')}">
           <a href="/admin">Admin</a>
         </li>
-        <li ng-class="{active: isActive('/presents')}" ng-click="isLoggedIn()">
+        <li ng-class="{active: isActive('/presents')}" ng-show="rootScopeUserExists()">
           <a href="/presents">Presents</a>
         </li>
-        <li ng-class="{active: isActive('/login')}" ng-click="isLoggedIn()">
+        <li ng-class="{active: isActive('/login')}" ng-hide="rootScopeUserExists()">
           <a href="/login">Login</a>
         </li>
-        <li ng-class="{active: isActive('/signup')}" ng-click="isLoggedIn()">
+        <li ng-class="{active: isActive('/signup')}" ng-hide="rootScopeUserExists()">
           <a href="/signup">Sign up</a>
         </li>
-        <li ng-click="logOut()">
+        <li ng-click="logOut()" ng-show="rootScopeUserExists()">
           <a href="#">Log out</a>
         </li>
-        <li ng-click="getActiveUser()">
+        <li>
           <a href="#">test</a>
         </li>
         <li>
