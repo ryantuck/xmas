@@ -6,30 +6,11 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	$scope.presentUser = null;
 	$scope.presents = [];
 
-	// get presents before anything else
-	
-
-	// $scope.getPresents = function () {
-
-	// 	$http.get('/api/presents')
-	// 		.success(function(data) {
-	// 			$scope.presents = data;
-	// 			console.log(data);
-	// 		})
-	// 		.error(function(data) {
-	// 			console.log('error: ' + data);
-	// 		});
-	// };
-
-	// $scope.getPresents();
-
 	$scope.getUserPresents = function() {
 		
 		// get rootScope user id
 		$http.get('/api/users/active')
 			.success(function(data) {
-				console.log('here is the present user!');
-				console.log(data);
 				$scope.presentUser = data;
 				$scope.presents = $scope.presentUser.presents;
 			})
@@ -43,12 +24,9 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	
 
 	$scope.sortPresents = function(e,ui) { // need to pass in e, ui for sortable shit
-		console.log("sorting presents called");
 
 		if ($scope.presents !== null)
 			$scope.resetPresentIndices();
-
-		console.log($scope.presents);
 
 	};
 
@@ -77,8 +55,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			index: $scope.presents[a].index
 		})
 			.success(function(data) {
-				console.log(data);
-				console.log('hooray, present was edited!');
 				$scope.getUserPresents();
 			})
 			.error(function(data) {
@@ -110,6 +86,9 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		})
 			.success(function(data) {
 				console.log('hooray, present added!');
+				console.log(data);
+				// add present (or id?) to list of user's presents
+				$scope.hookUpPresentIdToUser(data._id);
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
@@ -120,13 +99,26 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.newPresentLink = '';
 	};
 
+	$scope.hookUpPresentIdToUser = function(prId) {
+
+		var tmpUserId = $scope.presentUser._id;
+
+		$http.put('/api/users/' + tmpUserId, {
+                pId: prId
+            })
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('error: ' + data);
+            });
+	};
+
 	$scope.updatePresent = function(idx) {
 		$scope.presents[idx].title = $scope.tmpPresent.title;
 		$scope.presents[idx].notes = $scope.tmpPresent.notes;
 		$scope.presents[idx].link = $scope.tmpPresent.link;
 		$scope.presents[idx].index = $scope.tmpPresent.index;
-
-		console.log($scope.presents[idx].title);
 
 		var tmpId = $scope.presents[idx]._id;
 
@@ -137,8 +129,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			index: $scope.presents[idx].index
 		})
 			.success(function(data) {
-				console.log(data);
-				console.log('hooray, present was edited!');
 				$scope.getUserPresents();
 			})
 			.error(function(data) {
@@ -164,8 +154,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.tmpPresent.title = $scope.presents[idx].title;
 		$scope.tmpPresent.notes = $scope.presents[idx].notes;
 		$scope.tmpPresent.link = $scope.presents[idx].link;
-
-		console.log($scope.tmpPresent.title);
 	};
 
 	$scope.clearEditing = function() {
@@ -180,7 +168,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 		$http.delete('/api/presents/' + tmpId)
 			.success(function(data) {
-				console.log(data);
 				$scope.getUserPresents();
 			})
 			.error(function(data) {

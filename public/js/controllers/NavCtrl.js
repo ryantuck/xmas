@@ -52,15 +52,11 @@ angular.module('NavCtrl', []).controller('NavController', function($scope, $root
 
     $http.get('/api/users/active')
       .success(function(data) {
-        console.log(data);
         if (data.message) {
-          console.log('data message');
           $rootScope.activeUser = null;
         }
         else {
-          console.log('got active user bro');
           $rootScope.activeUser = data.local.email;
-          console.log($rootScope.activeUser);
         }
       })
       .error(function(data) {

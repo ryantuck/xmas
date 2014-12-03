@@ -35,9 +35,7 @@ module.exports = function(app, passport) {
       p.save(function(err) {
         if (err)
           res.send(err);
-        res.json({
-          message: 'present created!'
-        });
+        res.json(p);
       });
     });
 

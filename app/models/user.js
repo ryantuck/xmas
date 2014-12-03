@@ -18,43 +18,50 @@ var userSchema = mongoose.Schema({
 
 userSchema.pre('save',function(next){
 
-	var p1 = new Present();
-	var p2 = new Present();
-	var p3 = new Present();
-	var p4 = new Present();
-	var p5 = new Present();
+	console.log('user constructor');
+
+	// if user has no presents (happens when user is first constructed), populate with default presents
+	if (this.presents.length === 0) {
 
 
-	p1.title = 'Underwear!';
-	p2.title = 'coffee joulies';
-	p3.title = 'The Art of Computer Programming';
-	p4.title = 'Victorinox chef knife';
-	p5.title = 'dinner out at Ippudo';
+		var p1 = new Present();
+		var p2 = new Present();
+		var p3 = new Present();
+		var p4 = new Present();
+		var p5 = new Present();
 
-	p1.notes = 'only hanes, only polyblend';
-	p3.notes = 'Donald Knuth. Apparently pretty rad for CS-types.';
-	p4.notes = 'Chefs Illustrated said this is the best bang-for-buck knife out there';
-	p5.notes = 'NYC. Midtown West. please please please please.';
 
-	p2.link = 'http://www.joulies.com/products/5-pack#';
-	p3.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
+		p1.title = 'Underwear!';
+		p2.title = 'coffee joulies';
+		p3.title = 'The Art of Computer Programming';
+		p4.title = 'Victorinox chef knife';
+		p5.title = 'dinner out at Ippudo';
 
-	p1.index = 0;
-	p2.index = 1;
-	p3.index = 2;
-	p4.index = 3;
-	p5.index = 4;
+		p1.notes = 'only hanes, only polyblend';
+		p3.notes = 'Donald Knuth. Apparently pretty rad for CS-types.';
+		p4.notes = 'Chefs Illustrated said this is the best bang-for-buck knife out there';
+		p5.notes = 'NYC. Midtown West. please please please please.';
 
-	
+		p2.link = 'http://www.joulies.com/products/5-pack#';
+		p3.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
 
-	var prez = [p1,p2,p3,p4,p5];
+		p1.index = 0;
+		p2.index = 1;
+		p3.index = 2;
+		p4.index = 3;
+		p5.index = 4;
 
-	for (i=0;i<prez.length;i++){
-		this.presents.push(prez[i]._id);
-		prez[i].save(function(err){
-			if (err)
-				console.log(err);
-		});
+		
+
+		var prez = [p1,p2,p3,p4,p5];
+
+		for (i=0;i<prez.length;i++){
+			this.presents.push(prez[i]._id);
+			prez[i].save(function(err){
+				if (err)
+					console.log(err);
+			});
+		}
 	}
 
 	next();
