@@ -2,15 +2,13 @@
 
 angular.module('PresentCtrl',[]).controller('PresentController',function($scope, $rootScope, $http, $filter, User){
 
+	// some variables we'll be needing
 	$scope.editing = null;
 	$scope.presentUser = null;
 	$scope.presents = [];
-
 	$scope.tmpPresent = {};
 
-	var socket = io.connect('http://localhost:8080');
-
-
+	// compare function for sorting presents after retrieving from server
 	function presentCompare(a,b) {
 		if (a.index < b.index) 
 			return -1;
@@ -19,7 +17,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		return 0;
 	}
 
-
+	// retrieve the user's presents from the server and sort
 	$scope.getUserPresents = function() {
 		
 		// get rootScope user id
@@ -35,20 +33,11 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			});
 	};
 
+	// go ahead and get them to begin
 	$scope.getUserPresents();
 
-	$scope.stopSort = function() {
-		socket.emit('sorting done');
-	};
-
-	$scope.sortPresents = function(e,ui) { // need to pass in e, ui for sortable shit
-
-		if ($scope.presents !== null)
-			$scope.resetPresentIndices();
-
-	};
-
-	$scope.resetPresentIndices = function() {
+	// change $scope.presents indices to reflect those of the ui sortable list
+	$scope.updatePresentIndices = function() {
 		
 		// update indices
 		for (var i = 0; i<$scope.presents.length; i++) {
@@ -56,14 +45,9 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		}
 
 		console.log('reset present indices');
-
-		// should save to DB here
-		// but, there's some bullshit issue if presentClientToDB is here
-		// currently located on Test button ng-click
-
-
 	};
 
+	// pushes updates for present[a] to the server
 	$scope.presentClientToDB = function(a) {
 		
 		var asdf = $scope.presents[a]._id;
@@ -75,31 +59,29 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			index: $scope.presents[a].index
 		})
 			.success(function(data) {
-				//$scope.getUserPresents();
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
 			});
 	};
 
+	// returns total presents for UI purposes
 	$scope.totalPresents = function() {
 		if ($scope.presents !== null)
 			return $scope.presents.length;
 	};
 
-	$scope.test = function() {
+	// update all presents on db side based on client data
+	$scope.updateDBFromPresents = function() {
 		for (var j=0; j < $scope.presents.length; j++) {
 			$scope.presentClientToDB(j);
 		}
 	};
 
-	socket.on('got it sorting done', function(data) {
-		console.log('got sorting done message!');
-		$scope.test();
-	});	
-
+	// adds new present based on user input
 	$scope.addPresentFromForm = function() {
 
+		// local
 		$scope.presents.push({
 			title: $scope.newPresentTitle,
 			notes: $scope.newPresentNotes,
@@ -107,6 +89,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			index: $scope.presents.length
 		});
 
+		// server side
 		$http.post('/api/presents', { 
 			title: $scope.newPresentTitle,
 			notes: $scope.newPresentNotes,
@@ -116,7 +99,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			.success(function(data) {
 				console.log('hooray, present added!');
 				console.log(data);
-				// add present (or id?) to list of user's presents
 				$scope.hookUpPresentIdToUser(data._id);
 				$scope.getUserPresents();
 			})
@@ -124,28 +106,29 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 				console.log('error: ' + data);
 			});
 
+		// reset fields to blank
 		$scope.newPresentTitle = '';
 		$scope.newPresentNotes = '';
 		$scope.newPresentLink = '';
-
-
 	};
 
+	// add present id to user's list, since that's how the data is stored server-side
 	$scope.hookUpPresentIdToUser = function(prId) {
 
 		var tmpUserId = $scope.presentUser._id;
 
 		$http.put('/api/users/' + tmpUserId, {
-                pId: prId
-            })
-            .success(function(data) {
-                console.log(data);
-            })
-            .error(function(data) {
-                console.log('error: ' + data);
-            });
+        pId: prId
+    })
+    .success(function(data) {
+        console.log(data);
+    })
+    .error(function(data) {
+        console.log('error: ' + data);
+    });
 	};
 
+	// called when check button is clicked in edit dialog
 	$scope.updatePresent = function(idx) {
 		$scope.presents[idx].title = $scope.tmpPresent.title;
 		$scope.presents[idx].notes = $scope.tmpPresent.notes;
@@ -167,11 +150,11 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 				console.log('error: ' + data);
 			});
 
-		$scope.clearEditing();
-
-		
+		// clear editing mode
+		$scope.clearEditing();		
 	};
 
+	// opens edit dialog and ensures it's the only one open
 	$scope.openEditDialog = function(idx) {
 
 		// close any other open edit dialogs
@@ -184,17 +167,18 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	};
 
+	// resets editing stuff
 	$scope.clearEditing = function() {
 		$scope.editing = null;
 		$scope.tmpPresent = {};
 	};
 
 
-
 	$scope.deletePresent = function(idx) {
 
 		var tmpId = $scope.presents[idx]._id;
 
+		// actually delete db object
 		$http.delete('/api/presents/' + tmpId)
 			.success(function(data) {
 				$scope.getUserPresents();
@@ -213,14 +197,12 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			});
 	};
 
+	// for UI sortable stuff!
 	$scope.sortableOptions = {
-		update: function() {
-			console.log('update');
-		},
 		stop: function() {
 			console.log('stop');
-			$scope.resetPresentIndices();
-			socket.emit('sorting done');
+			$scope.updatePresentIndices();
+			$scope.updateDBFromPresents();
 			console.log($scope.presents);
 		}
 	};
