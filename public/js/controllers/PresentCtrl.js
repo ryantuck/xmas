@@ -4,6 +4,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 	$scope.editing = null;
 	$scope.presentUser = null;
+	$scope.presents = [];
 
 	// get presents before anything else
 	
