@@ -36,10 +36,15 @@ angular.module('NavCtrl', []).controller('NavController', function($scope, $root
     $http.get('/logout')
       .success(function(data) {
         console.log('logged out!');
+        // pop back to home screen once logged out
+        $location.path('');
+        $scope.getActiveUser();
       })
       .error(function(data) {
         console.log('error: ' + data);
       });
+
+
   };
 
   // returns active user name, or 'not logged in' message
