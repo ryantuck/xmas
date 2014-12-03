@@ -88,6 +88,11 @@ io.on('connection', function (socket) {
   	console.log(data.message);
   });
 
+  socket.on('sorting done', function(data) {
+  	socket.emit('got it sorting done');
+  	console.log('got it sorting done');
+  })
+
 });
 
 

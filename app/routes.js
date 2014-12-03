@@ -40,7 +40,7 @@ module.exports = function(app, passport) {
     });
 
   presentRouter.route('/:present_id')
-    .put(function(req, res) {
+    .post(function(req, res) {
       Present.findById(req.params.present_id, function(err, present) {
         if (err) res.send(err);
         present.title = req.body.title;

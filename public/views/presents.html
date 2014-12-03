@@ -51,7 +51,7 @@
       <hr>
 
       <!-- List of presents! -->
-      <ul ui-sortable="{update: sortPresents()}" ng-model="presents" class="list-group">
+      <ul ui-sortable="sortableOptions" ng-model="presents" class="list-group">
 
         <!-- specific present -->
         <li class="list-group-item" ng-repeat="present in presents">
