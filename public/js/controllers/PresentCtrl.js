@@ -6,6 +6,10 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 	$scope.presentUser = null;
 	$scope.presents = [];
 
+	$scope.tmpPresent = {};
+
+
+
 	$scope.getUserPresents = function() {
 		
 		// get rootScope user id
@@ -135,13 +139,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 				console.log('error: ' + data);
 			});
 
-
-		$scope.tmpPresent.title = '';
-		$scope.tmpPresent.notes = '';
-		$scope.tmpPresent.link = '';
-		$scope.tmpPresent.index = '';
-
-		$scope.editing = null;
+		$scope.clearEditing();
 
 		
 	};
@@ -154,10 +152,13 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.tmpPresent.title = $scope.presents[idx].title;
 		$scope.tmpPresent.notes = $scope.presents[idx].notes;
 		$scope.tmpPresent.link = $scope.presents[idx].link;
+		$scope.tmpPresent.index = $scope.presents[idx].index;
+
 	};
 
 	$scope.clearEditing = function() {
 		$scope.editing = null;
+		$scope.tmpPresent = {};
 	};
 
 
