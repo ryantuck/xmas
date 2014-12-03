@@ -117,18 +117,18 @@ module.exports = function(app, passport) {
  		})
  		.put(function(req,res){
  			User.findById(req.params.user_id, function(err, user) {
-      if (err)
-        console.log(err);
-
-      console.log('adding pId: ' + req.body.pId);
-      user.presents.push(req.body.pId);
-
-      user.save(function(err) {
         if (err)
           console.log(err);
-        console.log('presents added to user');
+
+        console.log('adding pId: ' + req.body.pId);
+        user.presents.push(req.body.pId);
+
+        user.save(function(err) {
+          if (err)
+            console.log(err);
+          console.log('presents added to user');
+        });
       });
-    });
  		})
  		.delete(function(req,res){
  			User.remove({
@@ -141,6 +141,32 @@ module.exports = function(app, passport) {
       });
     });
  		});
+
+  userRouter.route('/:user_id/presents/:present_id')
+    .post(function(req,res) {
+      User.findById(req.params.user_id, function(err, user) {
+        if (err)
+          console.log(err);
+        console.log('deleting present:' + req.params.present_id);
+        console.log('user.presents.length = ' + user.presents.length);
+        var i = 0;
+        while (i < user.presents.length) {
+          console.log(user.presents[i]);
+          if (user.presents[i] == req.params.present_id) {
+            console.log('found that fucker');
+            user.presents.splice(i,1);
+          }
+          i++;
+        }
+
+        user.save(function(err) {
+          if (err)
+            console.log(err);
+          console.log('present successfully deleted from user');
+        });
+
+      });
+    });
 
   app.get('/checklogin', function(req, res) {
     if (req.user)

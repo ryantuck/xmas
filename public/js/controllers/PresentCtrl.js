@@ -174,7 +174,14 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 				console.log('error: ' + data);
 			});
 
-		// will probably have to delete present id from user's present list here as well!
+		// delete present ID from user's list of presents
+		$http.post('/api/users/' + $scope.presentUser._id + '/presents/' + tmpId)
+			.success(function(data) {
+				$scope.getUserPresents();
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
 	};
 
 
