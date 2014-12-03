@@ -92,15 +92,18 @@ module.exports = function(app, passport) {
   	});
 
   userRouter.route('/active')
-    .get(function(req,res){
-      if (req.user)
-        User.findById(req.user._id).exec(function(err,user) {
-          if (err)
-            console.log(err);
-          res.json(user);
-        });
-      else
-        res.json({message: 'not logged in'});
+    .get(function(req,res) {
+        if (req.user)
+          User
+            .findById(req.user._id)
+            .populate('presents')
+            .exec(function(err,user) {
+            if (err)
+              console.log(err);
+            res.json(user);
+          });
+        else
+          res.json({message: 'not logged in'});
     });
 
  	userRouter.route('/:user_id')

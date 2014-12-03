@@ -2,22 +2,44 @@
 
 angular.module('PresentCtrl',[]).controller('PresentController',function($scope, $rootScope, $http, $filter, User){
 
-	$scope.intro = 'hey dude get some prezzies.';
 	$scope.editing = null;
+	$scope.presentUser = null;
 
-	$scope.getPresents = function () {
+	// get presents before anything else
+	
 
-		$http.get('/api/presents')
+	// $scope.getPresents = function () {
+
+	// 	$http.get('/api/presents')
+	// 		.success(function(data) {
+	// 			$scope.presents = data;
+	// 			console.log(data);
+	// 		})
+	// 		.error(function(data) {
+	// 			console.log('error: ' + data);
+	// 		});
+	// };
+
+	// $scope.getPresents();
+
+	$scope.getUserPresents = function() {
+		
+		// get rootScope user id
+		$http.get('/api/users/active')
 			.success(function(data) {
-				$scope.presents = data;
+				console.log('here is the present user!');
 				console.log(data);
+				$scope.presentUser = data;
+				$scope.presents = $scope.presentUser.presents;
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
 			});
 	};
 
-	$scope.getPresents();
+	$scope.getUserPresents();
+
+	
 
 	$scope.sortPresents = function(e,ui) { // need to pass in e, ui for sortable shit
 		console.log("sorting presents called");
@@ -56,7 +78,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			.success(function(data) {
 				console.log(data);
 				console.log('hooray, present was edited!');
-				$scope.getPresents();
+				$scope.getUserPresents();
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
@@ -116,7 +138,7 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			.success(function(data) {
 				console.log(data);
 				console.log('hooray, present was edited!');
-				$scope.getPresents();
+				$scope.getUserPresents();
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
@@ -158,11 +180,13 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$http.delete('/api/presents/' + tmpId)
 			.success(function(data) {
 				console.log(data);
-				$scope.getPresents();
+				$scope.getUserPresents();
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
 			});
+
+		// will probably have to delete present id from user's present list here as well!
 	};
 
 
