@@ -2,14 +2,6 @@
 
 <div>
 
-  <!-- Header -->
-  <h1>Santafy</h1>
-  <p>Santa isn't real. This is the next best thing.</p>
-  <p>Make your list, check it twice, and share it with your friends and family. No more shitty gifts.</p>
-  <button class="btn btn-default" ng-click="test()">Test</button>
-
-  <hr>
-
   <!-- Main Body -->
   <div class="row">
 
@@ -39,8 +31,18 @@
           <label for="newPresentLink">Link</label>
           <input type="url" name="link" id="newPresentLink" ng-model="newPresentLink" class="form-control" placeholder="www.amazon.com/...">
         </div>
-        <button type="submit" class="btn btn-primary" ng-disabled="presentForm.$invalid">Add to List!</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="presentForm.$invalid">
+          Add to List! <span class="glyphicon glyphicon-plus"></span>
+        </button>
+
       </form>
+
+      <hr>
+
+      <h3>Finished?</h3>
+      <p>Once your list is ready, finalize it by sending it out to friends and family!</p>
+      <button class="btn btn-danger">Finalize <span class="glyphicon glyphicon-ok"></span></button>
+
     </div>
 
     <!-- List Column -->
