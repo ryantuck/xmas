@@ -12,8 +12,8 @@ var userSchema = mongoose.Schema({
 		email : String,
 		password : String
 	},
+	finalized: Boolean,
 	presents: [ {type: mongoose.Schema.ObjectId, ref: 'Present'} ]
-
 });
 
 userSchema.pre('save',function(next){
@@ -22,6 +22,8 @@ userSchema.pre('save',function(next){
 
 	// if user has no presents (happens when user is first constructed), populate with default presents
 	if (this.presents.length === 0) {
+
+		this.finalized = false;
 
 
 		var p1 = new Present();
@@ -63,6 +65,8 @@ userSchema.pre('save',function(next){
 			});
 		}
 	}
+
+
 
 	next();
 
