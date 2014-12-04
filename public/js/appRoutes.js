@@ -26,6 +26,14 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		.when('/signup', {
 			templateUrl: 'views/signup.html',
 			controller: 'SignupController'
+		})
+
+		.when('/noUser', {
+			templateUrl: 'views/noUser.html'
+		})
+
+		.when('/list/:userId', {
+			templateUrl: 'views/userlist.html'
 		});
 
 	$locationProvider.html5Mode(true);

@@ -202,6 +202,27 @@ module.exports = function(app, passport) {
     req.logout();
     res.redirect('/');
   });
+
+  // middleware for accessing a specific user's list. 
+  // will be fleshing out finalized list, including logic for who is accessing the page
+  app.get('/list/:user_id', function(req,res,next) {
+    console.log('attempting to access user list');
+
+    User.findById(req.params.user_id, function(err, user) {
+        if (err) {
+          console.log(err);
+          res.redirect('/noUser');
+        }
+        else {
+
+          // need logic here to determine if someone is trying to access his own list
+          // as well as if the user exists but hasn't yet finalized his list
+
+          return next();
+        }
+      });
+
+  });
   
   // frontend routes =========================================================
 
