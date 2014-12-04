@@ -218,7 +218,14 @@ module.exports = function(app, passport) {
           // need logic here to determine if someone is trying to access his own list
           // as well as if the user exists but hasn't yet finalized his list
 
-          return next();
+
+          if (user.finalized === false) {
+            console.log('++++++++++ user exists but not finalized ');
+            res.redirect('/');
+          }
+          else {          
+           return next();
+          }
         }
       });
 
