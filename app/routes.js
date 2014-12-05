@@ -32,6 +32,7 @@ module.exports = function(app, passport) {
       p.title = req.body.title;
       p.notes = req.body.notes;
       p.link = req.body.link;
+      p.claimedBy = null;
       p.save(function(err) {
         if (err)
           res.send(err);
@@ -66,6 +67,35 @@ module.exports = function(app, passport) {
         });
       });
     });
+
+  presentRouter.route('/claim/:present_id/:user_id')
+    .post(function(req,res) {
+      Present.findById(req.params.present_id, function(err,present) {
+        if (err)
+          res.send(err);
+        present.claimedBy = req.params.user_id;
+        present.save(function(err) {
+          if (err)
+            res.send(err);
+          res.send(present);
+        });
+      });
+    });
+
+  presentRouter.route('/unclaim/:present_id/:user_id')
+    .post(function(req,res) {
+      Present.findById(req.params.present_id, function(err,present) {
+        if (err)
+          res.send(err);
+        present.claimedBy = null;
+        present.save(function(err) {
+          if (err)
+            res.send(err);
+          res.send(present);
+        });
+      });
+    });
+
 
 
   // User Router ========================================
@@ -236,6 +266,8 @@ module.exports = function(app, passport) {
           // need logic here to determine if someone is trying to access his own list
           // as well as if the user exists but hasn't yet finalized his list
           // if i'm accessing myself, bring me to my list
+
+          console.log(user);
 
 
           if (user.finalized === false) {

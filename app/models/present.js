@@ -7,7 +7,8 @@ var presentSchema = new mongoose.Schema({
 	title: String,
 	notes: String,
 	link: String,
-	index: Number
+	index: Number,
+	claimedBy: String
 });
 
 module.exports = mongoose.model('Present',presentSchema);

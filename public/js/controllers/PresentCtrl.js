@@ -56,7 +56,8 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			title: $scope.presents[a].title,
 			notes: $scope.presents[a].notes,
 			link: $scope.presents[a].link,
-			index: $scope.presents[a].index
+			index: $scope.presents[a].index,
+			claimedBy: null
 		})
 			.success(function(data) {
 			})
@@ -86,7 +87,8 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			title: $scope.newPresentTitle,
 			notes: $scope.newPresentNotes,
 			link: $scope.newPresentLink,
-			index: $scope.presents.length
+			index: $scope.presents.length,
+			claimedBy: null
 		});
 
 		// server side
@@ -94,7 +96,8 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			title: $scope.newPresentTitle,
 			notes: $scope.newPresentNotes,
 			link: $scope.newPresentLink,
-			index: $scope.presents.length
+			index: $scope.presents.length,
+			claimedBy: null
 		})
 			.success(function(data) {
 				console.log('hooray, present added!');

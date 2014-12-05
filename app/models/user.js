@@ -32,6 +32,11 @@ userSchema.pre('save',function(next){
 		var p4 = new Present();
 		var p5 = new Present();
 
+		p1.claimedBy = null;
+		p2.claimedBy = null;
+		p3.claimedBy = null;
+		p4.claimedBy = null;
+		p5.claimedBy = null;
 
 		p1.title = 'Underwear!';
 		p2.title = 'coffee joulies';

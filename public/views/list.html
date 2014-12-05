@@ -1,42 +1,58 @@
 <div>
-	<h1>Listmas List!</h1>
+    <h1>Listmas List!</h1>
 
 
 
-	<p> List by: {{ presentUser.local.email }} </p>
+    <p> List by: {{ presentUser.local.email }} </p>
 
-	<p> Same user? {{ sameUser }} </p>
+    <p> Same user? {{ sameUser }} </p>
 
-	<form>
-		<label>This is a custom link to your list. Share with friends and family!</label>
-		<input type="text" class="form-control" value="{{ listURL }}" select-on-click />
-	</form>
+    <form>
+        <label>This is a custom link to your list. Share with friends and family!</label>
+        <input type="text" class="form-control" value="{{ listURL }}" select-on-click />
+    </form>
 
-	<ul class="list-group" ng-model="presents">
-		<li class="list-group-item" ng-repeat="present in presents">
-			<div class="row">
-				<div class="col-md-1">
-					<h1 style="color:gray">{{$index + 1}}</h1>
-				</div>
-				<div class="col-md-9">
-					<h3>{{ present.title }}</h3>
-					<p>{{ present.notes }}</p>
-					<p>{{ present.link }}</p>
-				</div>
-				<div class="col-md-2">
-					<div ng-mouseenter="hovering = $index" ng-mouseleave="hovering = null">
-						<button class="btn btn-default" ng-hide="hovering === $index">
-							Unclaimed :(
-						</button>
-						<button class="btn btn-primary" ng-show="hovering === $index">
-							Claim? <span class="glyphicon glyphicon-thumbs-up"></span>
-						</button>
-					<!-- <button class="btn btn-success">
-						Claimed! <span class="glyphicon glyphicon-ok"></span>
-					</button> -->
-					</div>
-				</div>
-			</div>
-		</li>
-	</ul>
+    <hr>
+
+    <ul class="list-group" ng-model="presents">
+        <li class="list-group-item" ng-repeat="present in presents">
+            <div class="row">
+                <div class="col-md-1">
+                    <h1 style="color:gray">{{$index + 1}}</h1>
+                </div>
+                <div class="col-md-9">
+                    <h3>{{ present.title }}</h3>
+                    <p>{{ present.notes }}</p>
+                    <p>{{ present.link }}</p>
+                </div>
+                <div class="col-md-2" ng-hide="sameUser">
+                    <div ng-hide="isClaimed($index)" ng-mouseenter="hovering = $index" ng-mouseleave="hovering = null">
+                        <button class="btn btn-default" ng-hide="hovering === $index">
+                            Unclaimed :(
+                        </button>
+                        <button class="btn btn-primary" ng-show="hovering === $index" ng-click="claim($index)">
+                            Claim? <span class="glyphicon glyphicon-thumbs-up"></span>
+                        </button>
+                    </div>
+                    <div ng-show="isClaimedByActiveUser($index)" ng-mouseenter="hovering = $index" ng-mouseleave="hovering = null">
+                        <div ng-hide="hovering === $index">
+                            <button class="btn btn-success">
+                                Got it! <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </div>
+                        <div ng-show="hovering === $index">
+                            <button class="btn btn-danger" ng-click="unClaim($index)">
+                                Don't got it? <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div ng-show="isClaimedByOtherUser($index)">
+                        <p>Already claimed!</p>
+                    </div>
+
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>

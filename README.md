@@ -1,27 +1,41 @@
-# Public Christmas List MEAN App
+# Listmas
 
-Built from stuff below
+A wedding registry for christmas gifts. It's like actually sending a christmas list to Santa. Except Santa is your friends and family.
 
 ---
 
+### Bugs
 
-# MEAN Stack Single Page Application Starter
+- if a user just signs up, and then tries to access a different list, the app will crash because it can't find the user_id provided in the http request. Odd that this would happen, especially if it *should* be able to find the user. 
+- if a person deletes all items on his list, it will reset to the original 5. I understand why this is happening, but is it behavior that we want?
 
-This is a repo for a starter appliation for a Single Page MEAN Stack application. Just download and install and you have a good foundation for building application. 
 
-## Installation
-1. Download the repository
-2. Install npm modules: `npm install`
-3. Install bower dependencies `bower install`
-4. Start up the server: `node server.js`
-5. View in browser at http://localhost:8080
+### TODO
 
-Use this starter kit to build any MEAN stack application you like.
+- form validation
+- CSS
+- clean up garbage
+- copy
+- home page!
 
-If you have any questions or requests, email us at [chris@scotch.io](mailto:chris@scotch.io) and we'll keep updating this to make it perfect.
 
-## Future Additions
-- CRUD examples
-- Development and Production Environments
-- Link examples
-- Single Page AngularJS Animations
+### Design Considerations
+
+- add user name to user model? 
+- allow list naming? could be fun.
+- merge login, signup, and home into one page? almost certainly.
+- social share buttons?
+- social login? nah. 
+- incorporate mailchimp or something?
+
+
+### Optimizations
+
+- convert a lot of stuff to socket.io communication instead of http requests. 
+
+
+
+
+---
+
+This app was built on top of the MEAN Stack Single Page Application Starter tutorial and [repo](https://github.com/scotch-io/starter-node-angular) by the awesome team at [scotch.io](http://scotch.io). 
