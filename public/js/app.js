@@ -9,5 +9,6 @@ angular.module('sampleApp',
   'SignupCtrl',
   'AdminCtrl',
   'NavCtrl',
-  'UserService'
+  'UserService',
+  'ListCtrl'
 ]);

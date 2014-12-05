@@ -1,0 +1,54 @@
+
+// List Controller
+// for finalized lists
+
+angular.module('ListCtrl',[]).controller('ListController', function($scope, $rootScope, $http, $location) {
+
+
+	$scope.presentUser = null;
+	$scope.presents = [];
+
+	// extracts user id from url, obv
+	function getIdFromURL() {
+		var x = $location.path();
+		x = x.split('/list/');
+		x = x[1];
+		return x;
+	}
+
+	// compare function for sorting presents after retrieving from server
+	function presentCompare(a,b) {
+		if (a.index < b.index) 
+			return -1;
+		if (a.index > b.index)
+			return 1;
+		return 0;
+	}
+
+	$scope.getUserPresents = function() {
+		
+		var tmpId = getIdFromURL();
+
+		// get rootScope user id
+		$http.get('/api/users/' + tmpId)
+			.success(function(data) {
+				$scope.presentUser = data;
+				$scope.presents = $scope.presentUser.presents;
+
+				$scope.presents.sort(presentCompare);
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+	};
+
+	$scope.test = function() {
+		$scope.getUserPresents();
+		console.log('getting user presents for user ' + getIdFromURL());
+	};
+
+
+
+});
+
+

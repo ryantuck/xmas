@@ -1,6 +1,6 @@
 // PresentCtrl.js
 
-angular.module('PresentCtrl',[]).controller('PresentController',function($scope, $rootScope, $http, $filter, User){
+angular.module('PresentCtrl',[]).controller('PresentController',function($scope, $rootScope, $http, $filter, $location, User){
 
 	// some variables we'll be needing
 	$scope.editing = null;
@@ -164,7 +164,6 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		$scope.tmpPresent.notes = $scope.presents[idx].notes;
 		$scope.tmpPresent.link = $scope.presents[idx].link;
 		$scope.tmpPresent.index = $scope.presents[idx].index;
-
 	};
 
 	// resets editing stuff
@@ -222,7 +221,38 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 			});
 	};
 
+	// checks if the user is finalized or not, and switches to list if needed
+	$scope.ifFinalizedThenSwitchToList = function() {
 
+		console.log('if finalized then switch');
+		if ($rootScope.activeUser !== null) {
+			console.log('rootscope active user != null');
+			if ($rootScope.activeUser.finalized === true) {
+				console.log('rootscope finalized = true');
+				$location.path('/list/' + $rootScope.activeUser._id);
+			}
+		}
+	};
+
+	// gets rootScope.activeUser and runs a finalized check
+	$scope.getActiveUser = function() {
+
+    $http.get('/api/users/active')
+      .success(function(data) {
+        if (data.message) {
+          $rootScope.activeUser = null;
+        }
+        else {
+          $rootScope.activeUser = data;
+          $scope.ifFinalizedThenSwitchToList();
+        }
+      })
+      .error(function(data) {
+        console.log('error: ' + data);
+      });
+  };
+
+$scope.getActiveUser();
 
 
 

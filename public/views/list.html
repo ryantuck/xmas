@@ -1,0 +1,25 @@
+<div>
+	<h1>Christmas List!</h1>
+
+	<button class="btn btn-default" ng-click="test()">Test</button>
+
+	<ul class="list-group" ng-model="presents">
+		<li class="list-group-item" ng-repeat="present in presents">
+			<div class="row">
+				<div class="col-md-1">
+					<h1 style="color:gray">{{$index + 1}}</h1>
+				</div>
+				<div class="col-md-9">
+					<h3>{{ present.title }}</h3>
+					<p>{{ present.notes }}</p>
+					<p>{{ present.link }}</p>
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-primary">
+						<span class="glyphicon glyphicon-ok"></span>
+					</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

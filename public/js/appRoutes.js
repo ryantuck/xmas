@@ -33,9 +33,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		})
 
 		.when('/list/:userId', {
-			templateUrl: 'views/userlist.html'
+			templateUrl: 'views/list.html',
+			controller: 'ListController'
 		});
 
 	$locationProvider.html5Mode(true);
 
 }]);
+
