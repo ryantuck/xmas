@@ -7,6 +7,7 @@ module.exports = function(grunt) {
 		'public/libs/jquery-ui/jquery-ui.js',
 		'public/libs/angular/angular.min.js',
 		'public/libs/angular-route/angular-route.min.js',
+		'public/libs/bootstrap/dist/js/bootstrap.js',
 		'node_modules/angular-ui-sortable/src/sortable.js',
 		'public/js/**/*.js',
 		'public/js/*.js'
