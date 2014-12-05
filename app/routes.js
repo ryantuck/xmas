@@ -150,6 +150,7 @@ module.exports = function(app, passport) {
 
         console.log('finalizing user!');
         user.finalized = true;
+        res.send(user);
 
         user.save(function(err) {
           if (err)

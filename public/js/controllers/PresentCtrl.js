@@ -207,13 +207,15 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		}
 	};
 
+	// sets user.finalized = true and redirects to permanent list
 	$scope.finalizeUser = function() {
 
 		var tmpId = $scope.presentUser._id;
 
 		$http.post('/api/users/finalize/' + tmpId)
 			.success(function(data) {
-				// user finalized! boop somewhere else?
+				// user finalized! boop to his list.
+				$location.path('/list/' + tmpId);
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
