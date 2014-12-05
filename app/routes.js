@@ -142,6 +142,23 @@ module.exports = function(app, passport) {
     });
  		});
 
+  userRouter.route('/finalize/:user_id')
+    .post(function(req,res) {
+      User.findById(req.params.user_id, function(err,user) {
+        if (err)
+          console.log(err);
+
+        console.log('finalizing user!');
+        user.finalized = true;
+
+        user.save(function(err) {
+          if (err)
+            console.log(err);
+          console.log('user finalize saved');
+        });
+      }); 
+    }); 
+
   userRouter.route('/:user_id/presents/:present_id')
     .post(function(req,res) {
       User.findById(req.params.user_id, function(err, user) {
@@ -217,12 +234,15 @@ module.exports = function(app, passport) {
 
           // need logic here to determine if someone is trying to access his own list
           // as well as if the user exists but hasn't yet finalized his list
+          // if i'm accessing myself, bring me to my list
 
 
           if (user.finalized === false) {
             console.log('++++++++++ user exists but not finalized ');
             res.redirect('/');
           }
+
+
           else {          
            return next();
           }

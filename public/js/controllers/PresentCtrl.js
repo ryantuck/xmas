@@ -207,6 +207,19 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 		}
 	};
 
+	$scope.finalizeUser = function() {
+
+		var tmpId = $scope.presentUser._id;
+
+		$http.post('/api/users/finalize/' + tmpId)
+			.success(function(data) {
+				// user finalized! boop somewhere else?
+			})
+			.error(function(data) {
+				console.log('error: ' + data);
+			});
+	};
+
 
 
 
