@@ -20,7 +20,10 @@ module.exports = function(grunt) {
 
 		// check all js files for errors
 		jshint: {
-			all: ['public/js/**/*.js','public/js/*.js']
+			all: ['public/js/**/*.js','public/js/*.js'],
+			options: {
+				smarttabs: true
+			}
 		},
 
 		// take all js files and minify them into app.min.js
