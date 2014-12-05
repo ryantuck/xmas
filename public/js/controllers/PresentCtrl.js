@@ -254,6 +254,13 @@ angular.module('PresentCtrl',[]).controller('PresentController',function($scope,
 
 $scope.getActiveUser();
 
+	$scope.userLoaded = function() {
+		if ($scope.presentUser === null)
+			return false;
+		else
+			return true;
+	};
+
 
 
 });
