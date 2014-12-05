@@ -256,8 +256,6 @@ $scope.getActiveUser();
 
 
 
-
-
 });
 
 
