@@ -1,7 +1,16 @@
 <div>
-	<h1>Christmas List!</h1>
+	<h1>Listmas List!</h1>
 
-	<button class="btn btn-default" ng-click="test()">Test</button>
+
+
+	<p> List by: {{ presentUser.local.email }} </p>
+
+	<p> Same user? {{ sameUser }} </p>
+
+	<form>
+		<label>This is a custom link to your list. Share with friends and family!</label>
+		<input type="text" class="form-control" value="{{ listURL }}" select-on-click />
+	</form>
 
 	<ul class="list-group" ng-model="presents">
 		<li class="list-group-item" ng-repeat="present in presents">
@@ -15,9 +24,17 @@
 					<p>{{ present.link }}</p>
 				</div>
 				<div class="col-md-2">
-					<button class="btn btn-primary">
-						<span class="glyphicon glyphicon-ok"></span>
-					</button>
+					<div ng-mouseenter="hovering = $index" ng-mouseleave="hovering = null">
+						<button class="btn btn-default" ng-hide="hovering === $index">
+							Unclaimed :(
+						</button>
+						<button class="btn btn-primary" ng-show="hovering === $index">
+							Claim? <span class="glyphicon glyphicon-thumbs-up"></span>
+						</button>
+					<!-- <button class="btn btn-success">
+						Claimed! <span class="glyphicon glyphicon-ok"></span>
+					</button> -->
+					</div>
 				</div>
 			</div>
 		</li>

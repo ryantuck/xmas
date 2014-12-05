@@ -8,6 +8,10 @@ angular.module('ListCtrl',[]).controller('ListController', function($scope, $roo
 	$scope.presentUser = null;
 	$scope.presents = [];
 
+	$scope.sameUser = false;
+
+	$scope.hovering = null;
+
 	// extracts user id from url, obv
 	function getIdFromURL() {
 		var x = $location.path();
@@ -36,6 +40,10 @@ angular.module('ListCtrl',[]).controller('ListController', function($scope, $roo
 				$scope.presents = $scope.presentUser.presents;
 
 				$scope.presents.sort(presentCompare);
+
+				if ($scope.presentUser._id === $rootScope.activeUser._id) {
+          	$scope.sameUser = true;
+          }
 			})
 			.error(function(data) {
 				console.log('error: ' + data);
@@ -47,8 +55,40 @@ angular.module('ListCtrl',[]).controller('ListController', function($scope, $roo
 		console.log('getting user presents for user ' + getIdFromURL());
 	};
 
+	// gets rootScope.activeUser and runs a finalized check
+	$scope.getActiveUser = function() {
+
+    $http.get('/api/users/active')
+      .success(function(data) {
+        if (data.message) {
+          $rootScope.activeUser = null;
+          $location.path('/login');
+        }
+        else {
+          $rootScope.activeUser = data;
+
+          $scope.getUserPresents();
+        }
+      })
+      .error(function(data) {
+        console.log('error: ' + data);
+      });
+  };
+
+	$scope.getActiveUser();
+
+	$scope.getUserPresents();
+
+	$scope.listURL = 'http://listmas.io' + $location.path();
 
 
+
+})
+.directive('selectOnClick', function () {
+    // Linker function
+    return function (scope, element, attrs) {
+      element.bind('click', function () {
+        this.select();
+      });
+    };
 });
-
-
