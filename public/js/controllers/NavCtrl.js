@@ -68,7 +68,7 @@ angular.module('NavCtrl', []).controller('NavController', function($scope, $root
   $scope.activeUser = function () {
     tmpString = 'not logged in';
     if ($rootScope.activeUser)
-      tmpString = $rootScope.activeUser.local.email;
+      tmpString = $rootScope.activeUser.name;
     return tmpString;
   };
 

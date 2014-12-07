@@ -12,6 +12,7 @@ var userSchema = mongoose.Schema({
 		email : String,
 		password : String
 	},
+	name: String,
 	finalized: Boolean,
 	presents: [ {type: mongoose.Schema.ObjectId, ref: 'Present'} ]
 });

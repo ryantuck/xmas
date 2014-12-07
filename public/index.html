@@ -26,28 +26,19 @@
         <a class="navbar-brand" href="/">Listmas</a>
       </div>
       <ul class="nav navbar-nav">
-        <li ng-class="{active: isActive('/admin')}">
-          <a href="/admin">Admin</a>
-        </li>
         <li ng-class="{active: isActive('/presents')}" ng-show="rootScopeUserExists()">
           <a href="/presents">My Presents</a>
         </li>
       </ul>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
-        <li ng-class="{active: isActive('/login')}" ng-hide="rootScopeUserExists()">
-          <a href="/login">Login</a>
-        </li>
-        <li ng-class="{active: isActive('/signup')}" ng-hide="rootScopeUserExists()">
-          <a href="/signup">Sign up</a>
-        </li>
-        <p class="navbar-text" ng-show="rootScopeUserExists()">
-          Ho ho ho, welcome, {{activeUser()}}!
-        </p>
-        <li ng-click="logOut()" ng-show="rootScopeUserExists()">
-          <a href="#">Log out</a>
-        </li>
-      </ul>
+          <p class="navbar-text" ng-show="rootScopeUserExists()">
+            Ho ho ho, welcome, {{activeUser()}}!
+          </p>
+          <li ng-click="logOut()" ng-show="rootScopeUserExists()">
+            <a href="#">Log out</a>
+          </li>
+        </ul>
       </div>
     </nav>
 

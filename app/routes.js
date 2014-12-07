@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
   // import mongoose models
   var User = require('./models/user');
   var Present = require('./models/present');
-  
+
 
 
   // Present Router ===========================================
@@ -69,8 +69,8 @@ module.exports = function(app, passport) {
     });
 
   presentRouter.route('/claim/:present_id/:user_id')
-    .post(function(req,res) {
-      Present.findById(req.params.present_id, function(err,present) {
+    .post(function(req, res) {
+      Present.findById(req.params.present_id, function(err, present) {
         if (err)
           res.send(err);
         present.claimedBy = req.params.user_id;
@@ -83,8 +83,8 @@ module.exports = function(app, passport) {
     });
 
   presentRouter.route('/unclaim/:present_id/:user_id')
-    .post(function(req,res) {
-      Present.findById(req.params.present_id, function(err,present) {
+    .post(function(req, res) {
+      Present.findById(req.params.present_id, function(err, present) {
         if (err)
           res.send(err);
         present.claimedBy = null;
@@ -102,51 +102,53 @@ module.exports = function(app, passport) {
 
   var userRouter = express.Router();
 
-  userRouter.use(function(req,res,next){
-  	console.log('--- User Router');
-  	next();
+  userRouter.use(function(req, res, next) {
+    console.log('--- User Router');
+    next();
   });
 
   userRouter.route('/')
-  	.get(function(req,res){
-  		User
-      .find()
-      .populate('presents')
-      .exec(function(err, users) {
-        if (err)
-          res.send(err);
-        res.json(users);
-      });
-  	});
-
-  userRouter.route('/active')
-    .get(function(req,res) {
-        if (req.user)
-          User
-            .findById(req.user._id)
-            .populate('presents')
-            .exec(function(err,user) {
-            if (err)
-              console.log(err);
-            res.json(user);
-          });
-        else
-          res.json({message: 'not logged in'});
+    .get(function(req, res) {
+      User
+        .find()
+        .populate('presents')
+        .exec(function(err, users) {
+          if (err)
+            res.send(err);
+          res.json(users);
+        });
     });
 
- 	userRouter.route('/:user_id')
- 		.get(function(req,res){
- 			User
-      .findById(req.params.user_id)
-      .populate('presents')
-      .exec(function(err, user) {
-        if (err) console.log(err);
-        console.log('user presents: ' + user.presents[0].title);
-        res.json(user);
-      });
- 		})
- 		.put(function(req,res){
- 			User.findById(req.params.user_id, function(err, user) {
+  userRouter.route('/active')
+    .get(function(req, res) {
+      if (req.user)
+        User
+        .findById(req.user._id)
+        .populate('presents')
+        .exec(function(err, user) {
+          if (err)
+            console.log(err);
+          res.json(user);
+        });
+      else
+        res.json({
+          message: 'not logged in'
+        });
+    });
+
+  userRouter.route('/:user_id')
+    .get(function(req, res) {
+      User
+        .findById(req.params.user_id)
+        .populate('presents')
+        .exec(function(err, user) {
+          if (err) console.log(err);
+          console.log('user presents: ' + user.presents[0].title);
+          res.json(user);
+        });
+    })
+    .put(function(req, res) {
+      User.findById(req.params.user_id, function(err, user) {
         if (err)
           console.log(err);
 
@@ -159,22 +161,22 @@ module.exports = function(app, passport) {
           console.log('presents added to user');
         });
       });
- 		})
- 		.delete(function(req,res){
- 			User.remove({
-      _id: req.params.user_id
-    }, function(err, user) {
-      if (err)
-        res.send(err);
-      res.json({
-        message: 'user successfully deleted'
+    })
+    .delete(function(req, res) {
+      User.remove({
+        _id: req.params.user_id
+      }, function(err, user) {
+        if (err)
+          res.send(err);
+        res.json({
+          message: 'user successfully deleted'
+        });
       });
     });
- 		});
 
   userRouter.route('/finalize/:user_id')
-    .post(function(req,res) {
-      User.findById(req.params.user_id, function(err,user) {
+    .post(function(req, res) {
+      User.findById(req.params.user_id, function(err, user) {
         if (err)
           console.log(err);
 
@@ -187,11 +189,11 @@ module.exports = function(app, passport) {
             console.log(err);
           console.log('user finalize saved');
         });
-      }); 
-    }); 
+      });
+    });
 
   userRouter.route('/:user_id/presents/:present_id')
-    .post(function(req,res) {
+    .post(function(req, res) {
       User.findById(req.params.user_id, function(err, user) {
         if (err)
           console.log(err);
@@ -202,7 +204,7 @@ module.exports = function(app, passport) {
           console.log(user.presents[i]);
           if (user.presents[i] == req.params.present_id) {
             console.log('found that fucker');
-            user.presents.splice(i,1);
+            user.presents.splice(i, 1);
           }
           i++;
         }
@@ -229,17 +231,51 @@ module.exports = function(app, passport) {
 
   // Passport Shit ======================================
 
-  app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/presents',
-    failureRedirect: '/login',
-    failureFlash: true
-  }));
+  app.post('/signup', function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
 
-  app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/presents',
-    failureRedirect: '/login',
-    failureFlash: true
-  }));
+      console.log(info);
+
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        res.send(info);
+      } else {
+        req.logIn(user, function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.send({
+            message: 'signed up'
+          });
+        });
+      }
+    })(req, res, next);
+  });
+
+  app.post('/login', function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+
+      console.log(info);
+
+      if (!user) {
+        res.send(info);
+      } else {
+        req.logIn(user, function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.send({
+            message: 'logged in'
+          });
+        });
+      }
+    })(req, res, next);
+  });
 
   app.get('/hello', isLoggedIn, function(req, res) {
     res.send(req.user);
@@ -253,37 +289,33 @@ module.exports = function(app, passport) {
 
   // middleware for accessing a specific user's list. 
   // will be fleshing out finalized list, including logic for who is accessing the page
-  app.get('/list/:user_id', function(req,res,next) {
+  app.get('/list/:user_id', function(req, res, next) {
     console.log('attempting to access user list');
 
     User.findById(req.params.user_id, function(err, user) {
-        if (err) {
-          console.log(err);
-          res.redirect('/noUser');
+      if (err) {
+        console.log(err);
+        res.redirect('/noUser');
+      } else {
+
+        // need logic here to determine if someone is trying to access his own list
+        // as well as if the user exists but hasn't yet finalized his list
+        // if i'm accessing myself, bring me to my list
+
+        console.log(user);
+
+
+        if (user.finalized === false) {
+          console.log('++++++++++ user exists but not finalized ');
+          res.redirect('/');
+        } else {
+          return next();
         }
-        else {
-
-          // need logic here to determine if someone is trying to access his own list
-          // as well as if the user exists but hasn't yet finalized his list
-          // if i'm accessing myself, bring me to my list
-
-          console.log(user);
-
-
-          if (user.finalized === false) {
-            console.log('++++++++++ user exists but not finalized ');
-            res.redirect('/');
-          }
-
-
-          else {          
-           return next();
-          }
-        }
-      });
+      }
+    });
 
   });
-  
+
   // frontend routes =========================================================
 
   // route to handle all angular requests

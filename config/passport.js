@@ -35,6 +35,9 @@ module.exports = function(passport) {
       passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
+
+      console.log('local login with ' + email);
+
       if (email)
         email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
@@ -49,14 +52,18 @@ module.exports = function(passport) {
 
           // if no user is found, return the message
           if (!user)
-            return done(null, false, req.flash('loginMessage', 'No user found.'));
+            return done(null, false, {message: 'no user found'});
 
           if (!user.validPassword(password))
-            return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+            return done(null, false, {message: 'wrong password'});
+
+
 
           // all is well, return user
-          else
+          else {
+            console.log('user found');
             return done(null, user);
+          }
         });
       });
 
@@ -75,6 +82,8 @@ module.exports = function(passport) {
       if (email)
         email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
+      console.log('user name: ' + req.body.name);
+
       // asynchronous
       process.nextTick(function() {
         // if the user is not already logged in:
@@ -88,7 +97,8 @@ module.exports = function(passport) {
 
             // check to see if theres already a user with that email
             if (user) {
-              return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+              console.log('------------ user already exists');
+              return done(null, false, {message: 'user already exists'});
             } else {
 
               // create the user
@@ -96,6 +106,7 @@ module.exports = function(passport) {
 
               newUser.local.email = email;
               newUser.local.password = newUser.generateHash(password);
+              newUser.name = req.body.name;
 
               newUser.save(function(err) {
                 if (err)
@@ -117,7 +128,8 @@ module.exports = function(passport) {
               return done(err);
 
             if (user) {
-              return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
+              console.log('+++++++++++++ user already exists!');
+              return done(null, false, {message: 'user already exists'});
               // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
             } else {
               var user = req.user;
