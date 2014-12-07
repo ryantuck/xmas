@@ -83,17 +83,17 @@ angular.module('ListCtrl', []).controller('ListController', function($scope, $ro
         };
 
         $scope.isClaimedByActiveUser = function(idx) {
-        	if ($scope.presents[idx].claimedBy === $rootScope.activeUser._id)
-        		return true;
-        	else
-        		return false;
+            if ($scope.presents[idx].claimedBy === $rootScope.activeUser._id)
+                return true;
+            else
+                return false;
         };
 
         $scope.isClaimedByOtherUser = function(idx) {
-        	if ($scope.isClaimed(idx) && !$scope.isClaimedByActiveUser(idx))
-        		return true;
-        	else
-        		return false;
+            if ($scope.isClaimed(idx) && !$scope.isClaimedByActiveUser(idx))
+                return true;
+            else
+                return false;
         };
 
         $scope.claim = function(idx) {
@@ -109,14 +109,14 @@ angular.module('ListCtrl', []).controller('ListController', function($scope, $ro
         };
 
         $scope.unClaim = function(idx) {
-        	$http.post('/api/presents/unclaim/' + $scope.presents[idx]._id + '/' + $rootScope.activeUser._id)
-        		.success(function(data) {
-        			console.log('unclaimed present');
-        			$scope.getUserPresents();
-        		})
-        		.error(function(data) {
-        			console.log('error: ' + data);
-        		});
+            $http.post('/api/presents/unclaim/' + $scope.presents[idx]._id + '/' + $rootScope.activeUser._id)
+                .success(function(data) {
+                    console.log('unclaimed present');
+                    $scope.getUserPresents();
+                })
+                .error(function(data) {
+                    console.log('error: ' + data);
+                });
         };
 
         $scope.getActiveUser();

@@ -31,7 +31,7 @@
           <label for="newPresentLink">Link</label>
           <input type="url" name="link" id="newPresentLink" ng-model="newPresentLink" class="form-control" placeholder="www.amazon.com/...">
         </div>
-        <button type="submit" class="btn btn-primary" ng-disabled="presentForm.$invalid">
+        <button type="submit" class="btn btn-primary btn-block" ng-disabled="presentForm.$invalid">
           Add to List! <span class="glyphicon glyphicon-plus"></span>
         </button>
 
@@ -42,7 +42,7 @@
       <!-- Finished Check -->
       <h3>Finished?</h3>
       <p>Once your list is ready, finalize it by sending it out to friends and family!</p>
-      <button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Finalize <span class="glyphicon glyphicon-ok"></span></button>
+      <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Finalize <span class="glyphicon glyphicon-ok"></span></button>
 
     </div>
 
@@ -161,16 +161,6 @@
       </div>
     </div>
   </div>
-
-  <p>tmp title: {{tmpPresent.title}}</p>
-  <p>tmp notes: {{tmpPresent.notes}}</p>
-  <p>tmp link: {{tmpPresent.link}}</p>
-  <br>
-  <p>editing: {{editing}}</p>
-
-  <hr>
-  <h3>JSON</h3>
-  <p>{{presents}}</p>
 
 
 </div>

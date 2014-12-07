@@ -26,7 +26,7 @@ A wedding registry for christmas gifts. It's like actually sending a christmas l
 - merge login, signup, and home into one page? almost certainly.
 - social share buttons?
 - social login? nah. 
-- incorporate mailchimp or something?
+- incorporate mailchimp or something? nodemailer seems like a good option, along with sendgrid.
 
 
 ### Optimizations
