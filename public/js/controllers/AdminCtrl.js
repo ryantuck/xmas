@@ -1,5 +1,6 @@
 // adminCtrl.js
 
+
 angular.module('AdminCtrl', []).controller('AdminController', ['$scope','$http',function($scope, $http) {
 
     $scope.users = [];
