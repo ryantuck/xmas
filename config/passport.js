@@ -82,7 +82,7 @@ module.exports = function(passport) {
       if (email)
         email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
-      console.log('user name: ' + req.body.name);
+      console.log('user name: ' + req.body.nombre);
 
       // asynchronous
       process.nextTick(function() {
@@ -106,7 +106,7 @@ module.exports = function(passport) {
 
               newUser.local.email = email;
               newUser.local.password = newUser.generateHash(password);
-              newUser.name = req.body.name;
+              newUser.name = req.body.nombre;
 
               newUser.save(function(err) {
                 if (err)
