@@ -21,7 +21,7 @@ var db 							= require('./config/db');
 mongoose.connect(db.production.url);
 
 // set port
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8081;
 
 // configure passport by passing it into the config file
 require('./config/passport')(passport);
@@ -92,7 +92,7 @@ io.on('connection', function (socket) {
   socket.on('sorting done', function(data) {
   	socket.emit('got it sorting done');
   	console.log('got it sorting done');
-  })
+  });
 
 });
 
