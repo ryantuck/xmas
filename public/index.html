@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
   <link rel="styleshseet" href="dist/css/style.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- JS -->
   <script src="/socket.io/socket.io.js"></script>
@@ -21,7 +22,7 @@
   <div class="container">
 
     <!-- HEADER -->
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="navbar-header">
         <a class="navbar-brand" href="/">Listmas</a>
       </div>
@@ -41,10 +42,11 @@
         </ul>
       </div>
     </nav>
+    <div class="container">
 
-    <!-- ANGULAR DYNAMIC CONTENT -->
-    <div ng-view autoscroll="true"></div>
-
+      <!-- ANGULAR DYNAMIC CONTENT -->
+      <div ng-view autoscroll="true"></div>
+    </div>
   </div>
 </body>
 

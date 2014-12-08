@@ -2,11 +2,13 @@
   <div class="row">
     <div class="col-sm-8">
 
-      <h1>Listmas</h1>
+      <h1>Listmas is a social, shareable christmas list.</h1>
 
-      <h3>Social, sharable christmas list.</h3>
+      <h3>Make your list. Check it twice. Share it with friends and family.</h3>
 
-      <p>Get what you want.</p>
+      <p>Know what they want. Get what you want. No more ugly sweaters. </p>
+
+      <div class="circle c1"></div>
 
     </div>
     <div class="col-sm-4">
@@ -60,6 +62,7 @@
         <div class="form-group">
           <label>Password</label>
           <input type="password" name="password" class="form-control" ng-model="signupPassword" ng-minlength="6" required>
+          <p style="color:gray">At least 6 characters</p>
         </div>
         <button type="submit" class="btn btn-success btn-block" ng-disabled="signupForm.$invalid">Sign Up</button>
       </form>

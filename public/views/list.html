@@ -1,16 +1,27 @@
 <div>
     <h1>Listmas List!</h1>
 
+    <div class="row">
+        <div class="col-md-6">
+            <p> List by: </p>
+            <p>{{ presentUser.name }} </p>
+            <p>{{ presentUser.local.email }} </p>
+
+            <div ng-show="sameUser">
+                <p>You're viewing your own list. You won't be able to see any information about claimed presents.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form>
+                <label>This is a custom link to your list. Share with friends and family!</label>
+                <input type="text" class="form-control" value="{{ listURL }}" select-on-click />
+            </form>
+        </div>
+    </div>
 
 
-    <p> List by: {{ presentUser.local.email }} </p>
 
-    <p> Same user? {{ sameUser }} </p>
 
-    <form>
-        <label>This is a custom link to your list. Share with friends and family!</label>
-        <input type="text" class="form-control" value="{{ listURL }}" select-on-click />
-    </form>
 
     <hr>
 
@@ -21,9 +32,11 @@
                     <h1 style="color:gray">{{$index + 1}}</h1>
                 </div>
                 <div class="col-md-9">
-                    <h3>{{ present.title }}</h3>
-                    <p>{{ present.notes }}</p>
-                    <p>{{ present.link }}</p>
+                    <h3>{{present.title}}</h3>
+                    <p>{{present.notes}}</p>
+                    <div ng-show="present.link">
+                        <a href="{{present.link}}" target="_blank">link <i class="fa fa-external-link"></i></a>
+                    </div>
                 </div>
                 <div class="col-md-2" ng-hide="sameUser">
                     <div ng-hide="isClaimed($index)" ng-mouseenter="hovering = $index" ng-mouseleave="hovering = null">

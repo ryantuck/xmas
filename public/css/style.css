@@ -1,5 +1,15 @@
-body { padding-top:30px; }
+html { min-height: 100%;}
 
-.list-group {cursor:ns-resize;}
+body { 
+  padding-top:80px;
 
-.newPresentNotes {max-width:100%;}
+  
+
+  min-height: 100%;
+
+ }
+
+#working-present-list {cursor:ns-resize;}
+
+.navbar-right {padding-right: 20px;}
+

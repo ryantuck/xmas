@@ -15,7 +15,7 @@
       <form role="form" name="presentForm" ng-submit="addPresentFromForm()" novalidate>
 
         <!-- title -->
-        <div class="form-group form-group-lg">
+        <div class="form-group">
           <label for="newPresentTitle">Title</label>
           <input type="text" name="title" id="newPresentTitle" ng-model="newPresentTitle" class="form-control" placeholder="a new toy!" required>
         </div>
@@ -32,7 +32,7 @@
           <input type="url" name="link" id="newPresentLink" ng-model="newPresentLink" class="form-control" placeholder="www.amazon.com/...">
         </div>
         <button type="submit" class="btn btn-primary btn-block" ng-disabled="presentForm.$invalid">
-          Add to List! <span class="glyphicon glyphicon-plus"></span>
+          Add to List! <i class="fa fa-plus"></i>
         </button>
 
       </form>
@@ -42,7 +42,7 @@
       <!-- Finished Check -->
       <h3>Finished?</h3>
       <p>Once your list is ready, finalize it by sending it out to friends and family!</p>
-      <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Finalize <span class="glyphicon glyphicon-ok"></span></button>
+      <button class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">Finalize <i class="fa fa-check"></i></button>
 
     </div>
 
@@ -54,7 +54,7 @@
       <hr>
 
       <!-- List of presents! -->
-      <ul ui-sortable="sortableOptions" ng-model="presents" class="list-group">
+      <ul id="working-present-list" ui-sortable="sortableOptions" ng-model="presents" class="list-group">
 
         <!-- specific present -->
         <li class="list-group-item" ng-repeat="present in presents">
@@ -62,7 +62,7 @@
 
             <!-- Index -->
             <div class="col-lg-1">
-              <h1 style="color:gray">{{$index + 1}}</h1>
+              <h1 style="color:#c30">{{$index + 1}}</h1>
             </div>
 
             <!-- Details -->
@@ -71,14 +71,14 @@
                 <h3>{{present.title}}</h3>
                 <p>{{present.notes}}</p>
                 <div ng-show="present.link">
-                <a href="{{present.link}}">link</a>
+                <a href="{{present.link}}" target="_blank">link <i class="fa fa-external-link"></i></a>
                 </div>
               </div>
 
 
               <!-- Editing Version -->
               <div ng-show="editing == $index">
-                <form name="inlineForm">
+                <form name="inlineForm" novalidate>
                   <div class="form-group">
 
                     <label>Title</label>
@@ -90,7 +90,7 @@
                   </div>
                   <div class="form-group">
                     <label>Link</label>
-                    <input type="text" name="inlineLink" class="form-control" ng-model="tmpPresent.link" placeholder="www.ebay.com/..." />
+                    <input type="url" name="inlineLink" class="form-control" ng-model="tmpPresent.link" placeholder="www.ebay.com/..." />
                   </div>
                 </form>
               </div>
@@ -101,34 +101,43 @@
 
               <!-- default -->
               <div ng-hide="editing == $index">
-                <div class="pull-right">
+                <div class="btn-toolbar pull-right">
 
                   <!-- edit -->
-                  <button class="btn btn-primary" ng-click="openEditDialog($index)">
-                    <span class="glyphicon glyphicon-edit"></span>
+                  <div class="btn-group">
+                  <button class="close" ng-click="openEditDialog($index)">
+                    <i class="fa fa-edit"></i>
                   </button>
+                  </div>
+
 
                   <!-- delete -->
-                  <button class="btn btn-danger" ng-click="deletePresent($index)">
-                    <span class="glyphicon glyphicon-trash"></span>
+                  <div class="btn-group">
+                  <button class="close" ng-click="deletePresent($index)">
+                    <i class="fa fa-close"  ></i>
                   </button>
+                  </div>
 
                 </div>
               </div>
 
               <!-- editing -->
               <div ng-show="editing == $index">
-                <div class="pull-right">
+                <div class="btn-toolbar pull-right">
 
                   <!-- save -->
-                  <button class="btn btn-success" ng-click="updatePresent($index)">
-                    <span class="glyphicon glyphicon-ok"></span>
+                  <div class="btn-group">
+                  <button class="close" ng-click="updatePresent($index)">
+                    <i class="fa fa-check" style="color:green"></i>
                   </button>
+                  </div>
 
                   <!-- discard -->
-                  <button class="btn" ng-click="clearEditing()">
-                    <span class="glyphicon glyphicon-remove"></span>
+                  <div class="btn-group">
+                  <button class="close" ng-click="clearEditing()">                    
+                    <i class="fa fa-close" style="color:red"></i>
                   </button>
+                  </div>
 
                 </div>
               </div>
