@@ -1,4 +1,4 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope,$http, $location) {
+angular.module('MainCtrl', []).controller('MainController', ['$scope','$http','$location', function($scope,$http, $location) {
 
   $scope.signupUserAlreadyExists = false;
   $scope.invalidUsernamePassword = false;
@@ -67,4 +67,4 @@ angular.module('MainCtrl', []).controller('MainController', function($scope,$htt
 
 
 
-});
+}]);

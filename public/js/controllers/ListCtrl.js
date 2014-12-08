@@ -2,7 +2,7 @@
 // for finalized lists
 
 
-angular.module('ListCtrl', []).controller('ListController', function($scope, $rootScope, $http, $location) {
+angular.module('ListCtrl', []).controller('ListController', ['$scope','$rootScope','$http','$location',function($scope, $rootScope, $http, $location) {
 
 
         $scope.presentUser = null;
@@ -127,7 +127,7 @@ angular.module('ListCtrl', []).controller('ListController', function($scope, $ro
 
 
 
-    })
+    }])
     .directive('selectOnClick', function() {
         // Linker function
         return function(scope, element, attrs) {

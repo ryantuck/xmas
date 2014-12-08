@@ -1,6 +1,6 @@
 // PresentCtrl.js
 
-angular.module('PresentCtrl',[]).controller('PresentController',function($scope, $rootScope, $http, $filter, $location, User){
+angular.module('PresentCtrl',[]).controller('PresentController', ['$scope','$rootScope','$http','$filter','$location',function($scope, $rootScope, $http, $filter, $location, User){
 
 	// some variables we'll be needing
 	$scope.editing = null;
@@ -266,7 +266,7 @@ $scope.getActiveUser();
 
 
 
-});
+}]);
 
 
 

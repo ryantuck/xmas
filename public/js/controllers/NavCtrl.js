@@ -1,6 +1,6 @@
 // Nav Controller
 
-angular.module('NavCtrl', []).controller('NavController', function($scope, $rootScope, $location, $http) {
+angular.module('NavCtrl', []).controller('NavController', ['$scope','$rootScope','$location','$http',function($scope, $rootScope, $location, $http) {
 
   // create angular-side rootScope.activeUser variable
   $rootScope.activeUser = null;
@@ -83,4 +83,4 @@ angular.module('NavCtrl', []).controller('NavController', function($scope, $root
 
 
 
-});
+}]);

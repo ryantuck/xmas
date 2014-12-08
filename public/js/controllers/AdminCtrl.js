@@ -1,6 +1,6 @@
 // adminCtrl.js
 
-angular.module('AdminCtrl', []).controller('AdminController', function($scope, $http) {
+angular.module('AdminCtrl', []).controller('AdminController', ['$scope','$http',function($scope, $http) {
 
     $scope.users = [];
     $scope.presents = [];
@@ -126,4 +126,4 @@ angular.module('AdminCtrl', []).controller('AdminController', function($scope, $
 
 
 
-});
+}]);

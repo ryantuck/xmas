@@ -1,6 +1,6 @@
 
 // SignupCtrl.js
 
-angular.module('SignupCtrl',[]).controller('SignupController', function($scope) {
+angular.module('SignupCtrl',[]).controller('SignupController', ['$scope',function($scope) {
 	
-});
+}]);

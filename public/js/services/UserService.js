@@ -1,7 +1,7 @@
 
 // User Service
 
-angular.module('UserService',[]).service('User', function($http,$rootScope) {
+angular.module('UserService',[]).service('User', ['$http','$rootScope',function($http,$rootScope) {
 
 	
 
@@ -26,4 +26,4 @@ angular.module('UserService',[]).service('User', function($http,$rootScope) {
 			return null;
 	}
 
-});
+}]);
