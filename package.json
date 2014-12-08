@@ -1,9 +1,12 @@
 {
-  "name": "starter-node-angular",
+  "name": "listmas",
+  "version": "0.1",
   "main": "server.js",
   "scripts": {
     "start": "grunt"
   },
+  "author": "ryan-tuck",
+  "license": "MIT",
   "dependencies": {
     "express": "~4.5.1",
     "mongoose": "~3.8.19",
@@ -35,5 +38,8 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-nodemon": "~0.3.0",
     "grunt-concurrent": "~0.5.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
