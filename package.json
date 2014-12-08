@@ -1,6 +1,5 @@
 {
   "name": "listmas",
-  "version": "0.1",
   "main": "server.js",
   "scripts": {
     "start": "grunt"
