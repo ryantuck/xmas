@@ -11,6 +11,4 @@ dbSettings = {
 
 };
 
-module.exports = {
-  url: 'mongodb://localhost/mydb'
-}
+module.exports = dbSettings;
