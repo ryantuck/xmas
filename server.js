@@ -17,7 +17,8 @@ var db 							= require('./config/db');
 // configuration ===========================================
 
 // connect mongoose to my database
-mongoose.connect(db.url);
+
+mongoose.connect(db.production.url);
 
 // set port
 var port = process.env.PORT || 8080;
