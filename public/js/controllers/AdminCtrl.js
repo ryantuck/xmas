@@ -6,7 +6,7 @@ angular.module('AdminCtrl', []).controller('AdminController', ['$scope','$http',
     $scope.users = [];
     $scope.presents = [];
 
-    var socket = io.connect('http://localhost:8080');
+    var socket = io.connect('https://secret-dawn-8024.herokuapp.com');
     socket.on('news', function(data) {
         console.log("omfg its working!");
         console.log(data);

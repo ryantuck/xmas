@@ -21,7 +21,7 @@ var db 							= require('./config/db');
 mongoose.connect(db.production.url);
 
 // set port
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 8080;
 
 // configure passport by passing it into the config file
 require('./config/passport')(passport);

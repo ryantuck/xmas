@@ -7,7 +7,7 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope','$rootScope'
   $rootScope.loggedIn = false;    // probably don't need this variable!
 
   // hook it up dog
-  var socket = io.connect('http://localhost:8080');
+  var socket = io.connect('https://secret-dawn-8024.herokuapp.com');
   
   // runs upon connection - ensures we're hooked up
   socket.on('connection success', function(data) {
