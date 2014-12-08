@@ -1,9 +1,6 @@
 {
   "name": "listmas",
   "main": "server.js",
-  "scripts": {
-    "start": "grunt"
-  },
   "author": "ryan-tuck",
   "license": "MIT",
   "dependencies": {

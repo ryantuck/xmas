@@ -101,6 +101,7 @@ module.exports = function(grunt) {
 
 	// register the nodemon task upon running grunt
 	grunt.registerTask('default',['less','cssmin','uglify','jshint','concurrent']);
+	grunt.registerTask('heroku:production', 'uglify');
 
 };
 
