@@ -26,7 +26,8 @@
     "express-session": "~1.9.1",
     "socket.io": "~1.2.1",
     "mongoose-construct": "0.0.1",
-    "grunt": "*"
+    "grunt": "*",
+    "bower": "~1.3.x"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
