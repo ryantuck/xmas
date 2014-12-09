@@ -8,6 +8,27 @@ angular.module('PresentCtrl',[]).controller('PresentController', ['$scope','$roo
 	$scope.presents = [];
 	$scope.tmpPresent = {};
 
+	$scope.placeholderTitles = [
+		'Furby!',
+		'three french hens',
+		'five golden rings',
+		'iPhone 6'
+	];
+
+	$scope.currentRandomTitle = $scope.placeholderTitles[0];
+
+	$scope.randomPresentTitle = function() {
+
+		rdm = Math.floor( Math.random() * $scope.placeholderTitles.length);
+
+		console.log('random var = ' + rdm);
+
+		
+
+		return $scope.placeholderTitles[rdm];
+
+	};
+
 	// compare function for sorting presents after retrieving from server
 	function presentCompare(a,b) {
 		if (a.index < b.index) 
@@ -113,6 +134,8 @@ angular.module('PresentCtrl',[]).controller('PresentController', ['$scope','$roo
 		$scope.newPresentTitle = '';
 		$scope.newPresentNotes = '';
 		$scope.newPresentLink = '';
+
+		$scope.currentRandomTitle = $scope.randomPresentTitle();
 	};
 
 	// add present id to user's list, since that's how the data is stored server-side
