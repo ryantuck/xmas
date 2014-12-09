@@ -39,19 +39,22 @@ userSchema.pre('save',function(next){
 		p4.claimedBy = null;
 		p5.claimedBy = null;
 
-		p1.title = 'Underwear!';
+		p1.title = 'Socks!';
 		p2.title = 'coffee joulies';
 		p3.title = 'The Art of Computer Programming';
 		p4.title = 'Victorinox chef knife';
 		p5.title = 'dinner out at Ippudo';
 
-		p1.notes = 'only hanes, only polyblend';
-		p3.notes = 'Donald Knuth. Apparently pretty rad for CS-types.';
-		p4.notes = 'Chefs Illustrated said this is the best bang-for-buck knife out there';
-		p5.notes = 'NYC. Midtown West. please please please please.';
+		p1.notes = 'Only Nike, black, mid-calf. I want tons of them. The most technically perfect sock out there.';
+		p2.notes = 'these cool your coffee fast then keep them warm forever. super cool.';
+		p3.notes = 'Donald Knuth. Apparently the equivalent of the Feynman lectures for computer science. See the 4 volume set at the link.';
+		p4.notes = 'Chefs Illustrated said this is the best bang-for-buck knife out there. Pretty cheap!';
+		p5.notes = 'The one in midtown west. You buy, but we both get ramen.';
 
+		p1.link = 'http://www.amazon.com/Nike-Mens-Performance-Moisture-Wicking-Socks/dp/B00ANTSXTI/ref=sr_1_46?s=apparel&ie=UTF8&qid=1418084263&sr=1-46&keywords=socks'
 		p2.link = 'http://www.joulies.com/products/5-pack#';
 		p3.link = 'http://www.amazon.com/Computer-Programming-Volumes-1-4A-Boxed/dp/0321751043/ref=pd_sim_b_2?ie=UTF8&refRID=0HEFJJQ74YD4F0HJTV9X';
+		p4.link = 'http://www.amazon.com/Victorinox-Swiss-8-Inch-Fibrox-Straight/dp/B008M5U1C2'
 
 		p1.index = 0;
 		p2.index = 1;
