@@ -62,7 +62,7 @@ var svr = require('http').Server(app);
 var io = require('socket.io')(svr);
 svr.listen(port);
 
-io.set( 'origins', 'domain.com:*' );
+io.set( 'origins', 'secret-dawn-8024.herokuapp.com' );
 
 io.set('transports', [
     'websocket'
