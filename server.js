@@ -60,7 +60,11 @@ require('./app/routes')(app, passport); // pass our application into our routes
 // socket.io shit
 var svr = require('http').Server(app);
 var io = require('socket.io')(svr);
-svr.listen(port);
+svr.listen(port, {origins: '*'});
+
+io.configure( function() {
+  io.set('origin','*');
+});
 
 io.set( 'origins', 'domain.com:*' );
 
