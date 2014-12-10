@@ -64,6 +64,14 @@ svr.listen(port);
 
 io.set( 'origins', 'domain.com:*' );
 
+io.set('transports', [
+    'websocket'
+  , 'flashsocket'
+  , 'htmlfile'
+  , 'xhr-polling'
+  , 'jsonp-polling'
+]);
+
 // all socket.io communication stuff
 io.on('connection', function (socket) {
 
