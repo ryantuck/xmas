@@ -23,14 +23,18 @@
 
     <!-- HEADER -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/"><img alt="Brand" style="max-height:100%" src="img/santa.png"></a>
-      </div>
+      <!-- <div class="navbar-header">
+        <a class="navbar-brand" href="/"><img alt="Brand" style="max-height:100%" src="img/BigSmile-100px.png">
+        </a>
+      </div> -->
       <ul class="nav navbar-nav">
         <li ng-class="{active: isActive('/presents')}" ng-show="rootScopeUserExists()">
           <a href="/presents">My Presents</a>
         </li>
       </ul>
+
+      <img src="img/BigSmile-800px.png" style="height:200px;padding:10px" class="center-block main-image">
+
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
           <p class="navbar-text" ng-show="rootScopeUserExists()">

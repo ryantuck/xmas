@@ -1,9 +1,9 @@
 html { min-height: 100%;}
 
 body { 
-  padding-top:80px;
+  padding-top:220px;
 
-  background: #bbb;
+  /*background: #bbb;*/
 
   
 
@@ -15,3 +15,37 @@ body {
 
 .navbar-right {padding-right: 20px;}
 
+.red-background { background: #f00; }
+.green-background { background: #0f0;}
+
+/*#introModal { display:block;}*/
+
+.blockModal { display:block;}
+
+.navbar-inverse {
+  background: #e0ffff;
+  border-bottom: 5px red dashed;
+  height: 10%;
+}
+
+.navbar-inverse .navbar-text {
+  color: #ff0000;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+  color: #fff;
+  background-color: #ff0000;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: #ff0000;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+  color: #000;
+}
+
+.main-image { 
+    -webkit-filter: drop-shadow(5px 5px 20px #222);
+    filter:         drop-shadow(5px 5px 20px #222); 
+}

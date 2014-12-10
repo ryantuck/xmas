@@ -1,21 +1,37 @@
 <div>
-  <div class="row">
-    <div class="col-sm-7">
+  <div class="center-block" style="width: 400px; text-align:center">
+    <h1 style="font-size: 5em;color:#f00">Listmas</h1>
+    <h3>A social, shareable christmas list.</h3>
+    <p>Make your list. Check it twice. Keep the magic in Christmas.</p>
 
-    <div>
-      <img src="img/santa.png" style="max-width:600px">
+    <hr>
+    <div ng-hide="userWantsToLogin">
+      <h2>Sign Up</h2>
+      <p>New? Welcome! Sign up here.</p>
+      <div class="alert alert-warning" role="alert" ng-show="signupUserAlreadyExists">
+        <button type="button" class="close" ng-click="signupUserAlreadyExists = false"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <strong>Hey!</strong> That email address is associated with an existing account. Try logging in!
       </div>
-      <h1>Listmas is a social, shareable christmas list.</h1>
-
-      <h3>Make your list. Check it twice. Share it with friends and family.</h3>
-
-      <p>Know what they want. Get what you want. No more ugly sweaters. </p>
-
-      <div class="circle c1"></div>
-
+      <form name="signupForm" ng-submit="signupSubmit(signupName,signupEmail,signupPassword); signupForm.$setPristine()" novalidate>
+        <div class="form-group" ng-class="{ 'has-error': signupForm.name.$invalid && !signupForm.name.$pristine}">
+          <!-- <label>Name</label> -->
+          <input type="text" name="name" class="form-control" ng-model="signupName" placeholder="Name" required>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': signupForm.email.$invalid && !signupForm.email.$pristine }">
+          <!-- <label>Email</label> -->
+          <input type="email" name="email" class="form-control" ng-model="signupEmail" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <!-- <label>Password</label> -->
+          <input type="password" name="password" class="form-control" ng-model="signupPassword" ng-minlength="6" placeholder="Password (min 6 characters)" required>
+        </div>
+        <button type="submit" class="btn btn-danger btn-block" ng-disabled="signupForm.$invalid">Sign Up</button>
+      </form>
+      <br>
+      <p>Have an account? <a href ng-click="userWantsToLogin = true" style="color:#f00">Login</a> instead.</p>
     </div>
-    <div class="col-sm-4 col-sm-offset-1">
-
+    <div ng-show="userWantsToLogin">
       <h2>Login</h2>
       <p>Already have an account? Login in here.</p>
 
@@ -28,47 +44,27 @@
       <div class="alert alert-danger" role="alert" ng-show="noUserFound">
         <button type="button" class="close" ng-click="noUserFound = false"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
-        <strong>Oops.</strong> That email address isn't associated with an account. Sign up below!
+        <strong>Oops.</strong> That email address isn't associated with an account. Sign up instead!
       </div>
 
       <form name="loginForm" ng-submit="loginSubmit(loginEmail,loginPassword)" novalidate>
         <div class="form-group" ng-class="{ 'has-error': loginForm.email.$invalid && !loginForm.email.$pristine, 'has-success': loginForm.email.$valid }">
-          <label>Email</label>
-          <input type="email" name="email" class="form-control" ng-model="loginEmail" required>
+          <!-- <label>Email</label> -->
+          <input type="email" name="email" class="form-control" ng-model="loginEmail" placeholder="Email" required>
         </div>
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" class="form-control" ng-model="loginPassword" required>
+          <!-- <label>Password</label> -->
+          <input type="password" name="password" class="form-control" ng-model="loginPassword" placeholder="Password" required>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block" ng-disabled="loginForm.$invalid">Login</button>
-      </form>
+        <button type="submit" class="btn btn-danger btn-block" ng-disabled="loginForm.$invalid">Login</button>
 
-      <hr>
-
-      <h2>Sign Up</h2>
-      <p>New? Welcome! Sign up here.</p>
-      <div class="alert alert-warning" role="alert" ng-show="signupUserAlreadyExists">
-        <button type="button" class="close" ng-click="signupUserAlreadyExists = false"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-        </button>
-        <strong>Hey!</strong> That email address is associated with an existing account. Try logging in above!
-      </div>
-      <form name="signupForm" ng-submit="signupSubmit(signupName,signupEmail,signupPassword); signupForm.$setPristine()" novalidate>
-        <div class="form-group" ng-class="{ 'has-error': signupForm.name.$invalid && !signupForm.name.$pristine}">
-          <label>Name</label>
-          <input type="text" name="name" class="form-control" ng-model="signupName" required>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': signupForm.email.$invalid && !signupForm.email.$pristine }">
-          <label>Email</label>
-          <input type="email" name="email" class="form-control" ng-model="signupEmail" required>
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" class="form-control" ng-model="signupPassword" ng-minlength="6" required>
-          <p style="color:gray">At least 6 characters</p>
-        </div>
-        <button type="submit" class="btn btn-success btn-block" ng-disabled="signupForm.$invalid">Sign Up</button>
+        <br>
+        <p>New? <a href ng-click="userWantsToLogin = false" style="color:#f00">Sign up</a> instead.</p>
       </form>
     </div>
+
+
   </div>
+
 </div>
