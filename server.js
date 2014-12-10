@@ -59,51 +59,51 @@ require('./app/routes')(app, passport); // pass our application into our routes
 
 // socket.io shit
 var svr = require('http').Server(app);
-var io = require('socket.io')(svr);
+//var io = require('socket.io')(svr);
 svr.listen(port);
 
-io.set( 'origins', 'secret-dawn-8024.herokuapp.com' );
+// io.set( 'origins', 'secret-dawn-8024.herokuapp.com' );
 
-io.set('transports', [
-    'websocket'
-  , 'polling'
-]);
+// io.set('transports', [
+//     'websocket'
+//   , 'polling'
+// ]);
 
-// all socket.io communication stuff
-io.on('connection', function (socket) {
+// // all socket.io communication stuff
+// io.on('connection', function (socket) {
 
-  socket.emit('connection success', { hello: 'world' });
+//   socket.emit('connection success', { hello: 'world' });
   
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-  socket.on('client connected', function (data) {
-  	console.log(data.message);
-  });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+//   socket.on('client connected', function (data) {
+//   	console.log(data.message);
+//   });
 
-  socket.on('user login', function (data) {
-  	console.log('user logged in! wahoo!');
-  	console.log(data);
-  });
+//   socket.on('user login', function (data) {
+//   	console.log('user logged in! wahoo!');
+//   	console.log(data);
+//   });
 
-  socket.on('get dat login info', function (data) {
-  	console.log(data);
-  });
+//   socket.on('get dat login info', function (data) {
+//   	console.log(data);
+//   });
 
-  setInterval(function(){
-    socket.emit('user check', 'Cow goes moo'); 
-	}, 5000);
+//   setInterval(function(){
+//     socket.emit('user check', 'Cow goes moo'); 
+// 	}, 5000);
 
-  socket.on('client reply', function (data) {
-  	console.log(data.message);
-  });
+//   socket.on('client reply', function (data) {
+//   	console.log(data.message);
+//   });
 
-  socket.on('sorting done', function(data) {
-  	socket.emit('got it sorting done');
-  	console.log('got it sorting done');
-  });
+//   socket.on('sorting done', function(data) {
+//   	socket.emit('got it sorting done');
+//   	console.log('got it sorting done');
+//   });
 
-});
+// });
 
 
 // start app ===============================================

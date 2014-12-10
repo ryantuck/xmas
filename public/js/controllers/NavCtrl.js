@@ -7,26 +7,28 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope', '$rootScope
   $rootScope.loggedIn = false; // probably don't need this variable!
 
   // hook it up dog
-  var socket = io.connect('https://secret-dawn-8024.herokuapp.com');
-  //var socket = io.connect('http://localhost');
+  // var socket = io.connect('https://secret-dawn-8024.herokuapp.com');
+  // //var socket = io.connect('http://localhost');
 
-  // runs upon connection - ensures we're hooked up
-  socket.on('connection success', function(data) {
-    console.log("beep boop connected to server");
-    socket.emit('client connected', {
-      message: 'connected up in angular dog!'
-    });
-    $scope.getActiveUser();
-  });
+  // // runs upon connection - ensures we're hooked up
+  // socket.on('connection success', function(data) {
+  //   console.log("beep boop connected to server");
+  //   socket.emit('client connected', {
+  //     message: 'connected up in angular dog!'
+  //   });
+  //   $scope.getActiveUser();
+  // });
 
-  // triggers at interval defined on server side
-  socket.on('user check', function(data) {
-    socket.emit('client reply', {
-      message: 'got it bro'
-    });
+  // // triggers at interval defined on server side
+  // socket.on('user check', function(data) {
+  //   socket.emit('client reply', {
+  //     message: 'got it bro'
+  //   });
 
-    $scope.getActiveUser();
-  });
+  //   $scope.getActiveUser();
+  // });
+
+  $scope.getActiveUser();
 
   // highlights the current selected tab
   $scope.isActive = function(route) {
