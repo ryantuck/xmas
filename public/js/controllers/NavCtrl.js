@@ -120,6 +120,8 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope', '$rootScope
       $scope.currentFace = 'big-smile-800';
     else
       $scope.currentFace = $scope.randomFace();
+
+    $scope.getActiveUser();
   });
 
   $scope.switchFace = function() {
