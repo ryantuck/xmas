@@ -66,10 +66,7 @@ io.set( 'origins', 'domain.com:*' );
 
 io.set('transports', [
     'websocket'
-  , 'flashsocket'
-  , 'htmlfile'
-  , 'xhr-polling'
-  , 'jsonp-polling'
+  , 'polling'
 ]);
 
 // all socket.io communication stuff
