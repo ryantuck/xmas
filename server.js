@@ -13,11 +13,13 @@ var morgan 					= require('morgan');
 var cookieParser 		= require('cookie-parser');
 var session 				= require('express-session');
 var db 							= require('./config/db');
+var cors            = require('cors');
 
 // configuration ===========================================
 
-// connect mongoose to my database
+app.use(cors);
 
+// connect mongoose to my database
 mongoose.connect(db.production.url);
 
 // set port
