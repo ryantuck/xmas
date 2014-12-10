@@ -14,7 +14,7 @@ var cookieParser 		= require('cookie-parser');
 var session 				= require('express-session');
 var mdb 							= require('./config/db');
 var cors            = require('cors');
-//var MongoStore      = require('connect-mongo')(session);
+var MongoStore      = require('connect-mongo')(session);
 
 // configuration ===========================================
 
@@ -47,6 +47,9 @@ app.use(cookieParser('wildwildwest')); 	// read cookies (needed for auth)
 app.use(session({
   secret: 'wildwildwest',
   cookie: {httpOnly: true, maxAge:14*24*60*60*1000},
+  store: new MongoStore({
+    db:mongoose.connection.db
+  }),
   saveUninitialized: true,
   resave: true
 })); // session secret
