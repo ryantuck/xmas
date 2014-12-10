@@ -62,10 +62,6 @@ var svr = require('http').Server(app);
 var io = require('socket.io')(svr);
 svr.listen(port);
 
-io.configure( function() {
-  io.set('origin','*');
-});
-
 io.set( 'origins', 'domain.com:*' );
 
 // all socket.io communication stuff
