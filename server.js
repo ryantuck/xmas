@@ -12,15 +12,16 @@ var flash 					= require('connect-flash');
 var morgan 					= require('morgan');
 var cookieParser 		= require('cookie-parser');
 var session 				= require('express-session');
-var db 							= require('./config/db');
+var mdb 							= require('./config/db');
 var cors            = require('cors');
+//var MongoStore      = require('connect-mongo')(session);
 
 // configuration ===========================================
 
 app.use(cors());
 
 // connect mongoose to my database
-mongoose.connect(db.production.url);
+mongoose.connect(mdb.production.url);
 
 // set port
 var port = process.env.PORT || 8080;
@@ -38,12 +39,14 @@ app.use(bodyParser.urlencoded({
 })); // parse application/x-www-form-urlencoded
 
 
+
 app.use(morgan('dev')); 	// outputs http activity in terminal
-app.use(cookieParser()); 	// read cookies (needed for auth)
+app.use(cookieParser('wildwildwest')); 	// read cookies (needed for auth)
 
 // passport stuff
 app.use(session({
   secret: 'wildwildwest',
+  cookie: {httpOnly: true, maxAge:14*24*60*60*1000},
   saveUninitialized: true,
   resave: true
 })); // session secret
