@@ -17,7 +17,7 @@ var cors            = require('cors');
 
 // configuration ===========================================
 
-app.use(cors);
+app.use(cors());
 
 // connect mongoose to my database
 mongoose.connect(db.production.url);
