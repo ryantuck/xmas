@@ -19,33 +19,47 @@
 </head>
 
 <body ng-app="sampleApp" ng-controller="NavController">
+  <!-- <div class="listmas-nav">
+  <div class="left-stuff">
+    <ul>
+      <li>My Presents</li>
+      <li>Log out</li>
+    </ul>
+  </div>
+  <div class="right-stuff">
+    <h2>Ho ho ho, welcome, Ryan Tuck!</h2>
+  </div>
+
+  <img src="img/BigSmile-800px.png" class="main-image">
+
+</div>
+ -->
+
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <ul class="nav navbar-nav">
+      <li ng-class="{active: isActive('/presents')}" ng-show="rootScopeUserExists()">
+        <a href="/presents">My Presents</a>
+      </li>
+    </ul>
+    <img src="img/BigSmile-800px.png" class="main-image">
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <p class="navbar-text" ng-show="rootScopeUserExists()">
+          Ho ho ho, welcome, {{activeUser()}}!
+        </p>
+        <li ng-click="logOut()" ng-show="rootScopeUserExists()">
+          <a href="#">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container">
 
     <!-- HEADER -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <!-- <div class="navbar-header">
-        <a class="navbar-brand" href="/"><img alt="Brand" style="max-height:100%" src="img/BigSmile-100px.png">
-        </a>
-      </div> -->
-      <ul class="nav navbar-nav">
-        <li ng-class="{active: isActive('/presents')}" ng-show="rootScopeUserExists()">
-          <a href="/presents">My Presents</a>
-        </li>
-      </ul>
 
-      <img src="img/BigSmile-800px.png" style="height:200px;padding:10px" class="center-block main-image">
 
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <p class="navbar-text" ng-show="rootScopeUserExists()">
-            Ho ho ho, welcome, {{activeUser()}}!
-          </p>
-          <li ng-click="logOut()" ng-show="rootScopeUserExists()">
-            <a href="#">Log out</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
     <div class="container">
 
       <!-- ANGULAR DYNAMIC CONTENT -->

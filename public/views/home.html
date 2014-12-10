@@ -26,7 +26,7 @@
           <!-- <label>Password</label> -->
           <input type="password" name="password" class="form-control" ng-model="signupPassword" ng-minlength="6" placeholder="Password (min 6 characters)" required>
         </div>
-        <button type="submit" class="btn btn-danger btn-block" ng-disabled="signupForm.$invalid">Sign Up</button>
+        <button type="submit" class="btn btn-success btn-block" ng-disabled="signupForm.$invalid">Sign Up</button>
       </form>
       <br>
       <p>Have an account? <a href ng-click="userWantsToLogin = true" style="color:#f00">Login</a> instead.</p>
@@ -57,7 +57,7 @@
           <input type="password" name="password" class="form-control" ng-model="loginPassword" placeholder="Password" required>
         </div>
 
-        <button type="submit" class="btn btn-danger btn-block" ng-disabled="loginForm.$invalid">Login</button>
+        <button type="submit" class="btn btn-success btn-block" ng-disabled="loginForm.$invalid">Login</button>
 
         <br>
         <p>New? <a href ng-click="userWantsToLogin = false" style="color:#f00">Sign up</a> instead.</p>
