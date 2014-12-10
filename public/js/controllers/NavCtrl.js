@@ -28,7 +28,6 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope', '$rootScope
   //   $scope.getActiveUser();
   // });
 
-  $scope.getActiveUser();
 
   // highlights the current selected tab
   $scope.isActive = function(route) {
