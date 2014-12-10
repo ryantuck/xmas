@@ -138,11 +138,15 @@ footer {
   height: 2em;
 }
 
+.push {
+  height:2em;
+}
+
 footer * {
   color:white;
 }
 
-.wrapper, .push {
+.wrapper {
   min-height: 100%;
   height: auto !important;
   height: 100%;
