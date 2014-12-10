@@ -161,6 +161,11 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-lg-2" ng-show="present.published" style="text-align:right">
+            <p><strong>Published.</strong></p>
+            </div>
+
           </div>
 
 
@@ -208,8 +213,9 @@
           <h3 ng-show="step === 1">Your List</h3>
           <h3 ng-show="step === 2">Adding Presents</h3>
           <h3 ng-show="step === 3">Publishing Your List</h3>
-          <h3 ng-show="step === 4">Your Published List</h3>
-          <h3 ng-show="step === 5">Have fun!</h3>
+          <h3 ng-show="step === 4">Adding More Presents</h3>
+          <h3 ng-show="step === 5">Your Published List</h3>
+          <h3 ng-show="step === 6">Have fun!</h3>
         </div>
 
         <div class="modal-body">
@@ -229,19 +235,23 @@
             <img src="img/add-ex.jpg" style="max-width:80%" class="center-block">
           </div>
           <div ng-show="step === 3">
-            <p><strong>Here's the important part</strong>
+            <p><strong>Here's the important part.</strong>
             </p>
             <p>Once you've made your list and checked it twice, publish it to share with your friends and family.</p>
-            <p>Be careful! You won't be able to change your list once it's published.</p>
             <img src="img/publish-ex.jpg" style="max-width:80%" class="center-block">
           </div>
           <div ng-show="step === 4">
-            <p>You can share your public list using the link found on your completed list's page. </p>
-            <p>Others can view your list and claim presents they want to get you. Anyone else viewing your list will see these items as already claimed.</p>
-            <img src="img/claim-ex.jpg" style="max-width:80%" class="center-block">
-            <p>Now, of course, <strong>you won't see whether anything on your list has been claimed</strong>, saving the surprise until Christmas rolls around!</p>
+            <p><strong>You can continue publishing new presents to your list, but cannot remove or edit them once published.</strong> This means that once Grandma gets excited to buy you a sweater, there's no going back.</p>
+            <img src="img/add-more-ex.jpg" style="max-width:80%" class="center-block">
           </div>
           <div ng-show="step === 5">
+            <p>You can share your public list using the link found on your completed list's page. </p>
+            <img src="img/link-ex.jpg" style="max-width:80%" class="center-block">
+            <p>Others can view your list and claim presents they want to get you. Anyone else viewing your list will see these items as already claimed.</p>
+            <img src="img/claim-ex.jpg" style="max-width:80%" class="center-block">
+            <p>Of course, <strong>you won't see whether anything on your list has been claimed</strong>, saving the surprise until Christmas rolls around!</p>
+          </div>
+          <div ng-show="step === 6">
             <p>That's it! You can pull these instructions up any time using the 'help' button.</p>
             <p>If you have any questions or concerns, email us at {{ helpEmail }} and we'll make things right.</p>
           </div>
@@ -250,10 +260,10 @@
 
         <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal" ng-click="step = 0; needsModal = false">Close</button>
-          <button class="btn btn-primary" ng-click="backStep()" ng-hide="step === 5 || step === 0"><i class="fa fa-arrow-left"></i> Back</button>
-          <button class="btn btn-primary" ng-click="nextStep()" ng-hide="step === 5">Next <i class="fa fa-arrow-right"></i>
+          <button class="btn btn-primary" ng-click="backStep()" ng-hide="step === 6 || step === 0"><i class="fa fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" ng-click="nextStep()" ng-hide="step === 6">Next <i class="fa fa-arrow-right"></i>
           </button>
-          <button class="btn btn-success" data-dismiss="modal" ng-click="step = 0; needsModal = false" ng-show="step === 5">Got it! <i class="fa fa-check"></i>
+          <button class="btn btn-success" data-dismiss="modal" ng-click="step = 0; needsModal = false" ng-show="step === 6">Got it! <i class="fa fa-check"></i>
           </button>
         </div>
 

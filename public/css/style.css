@@ -146,7 +146,7 @@ footer * {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin:2em auto -2em;
+  margin:0 auto -2em;
 }
 
 

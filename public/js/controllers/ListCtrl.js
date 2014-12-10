@@ -63,7 +63,7 @@ angular.module('ListCtrl', []).controller('ListController', ['$scope','$rootScop
                 .success(function(data) {
                     if (data.message) {
                         $rootScope.activeUser = null;
-                        $location.path('/login');
+                        $location.path('/welcome');
                     } else {
                         $rootScope.activeUser = data;
 

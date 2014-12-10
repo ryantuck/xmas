@@ -32,6 +32,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/noUser.html'
 		})
 
+		.when('/welcome', {
+			templateUrl: 'views/welcome.html'
+		})
+
 		.when('/list/:userId', {
 			templateUrl: 'views/list.html',
 			controller: 'ListController'

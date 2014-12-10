@@ -4,9 +4,12 @@
     <h1>{{ presentUser.name}}'s Listmas List!</h1>
     <p>{{ presentUser.local.email }}</p>
     <form style="width:350px;margin:0 auto">
-      <label>This is a custom link for this list.</label>
+      <label>Custom link for this list. Share!</label>
       <input type="text" class="form-control" value="{{ listURL }}" select-on-click />
     </form>
+    <br>
+    <p>This is your list. You won't be able to see if anyone's claimed your presents!</p>
+    <p>Forgot something? <a href="/presents" style="color:red">Publish more presents.</a></p>
   </div>
 
 
@@ -49,8 +52,8 @@
             </div>
           </div>
 
-          <div ng-show="isClaimedByOtherUser($index)">
-            <p>Already claimed!</p>
+          <div ng-show="isClaimedByOtherUser($index)" style="text-align:right">
+            <p><strong>Already claimed!</strong></p>
           </div>
 
         </div>

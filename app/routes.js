@@ -193,6 +193,22 @@ module.exports = function(app, passport) {
       });
     });
 
+    userRouter.route('/name/:user_id')
+    .post(function(req, res) {
+      User.findById(req.params.user_id, function(err, user) {
+        if (err)
+          console.log(err);
+        user.name = req.body.name;
+        res.send(user);
+
+        user.save(function(err) {
+          if (err)
+            console.log(err);
+          console.log('user no longer new saved');
+        });
+      });
+    });
+
   userRouter.route('/finalize/:user_id')
     .post(function(req, res) {
       User.findById(req.params.user_id, function(err, user) {
@@ -351,3 +367,8 @@ function isLoggedIn(req, res, next) {
   console.log('not logged in');
   res.redirect('/');
 }
+
+
+
+
+

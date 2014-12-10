@@ -67,8 +67,9 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope', '$rootScope
   // returns active user as string
   $scope.activeUser = function() {
     tmpString = 'not logged in';
-    if ($rootScope.activeUser !== null)
+    if ($rootScope.activeUser !== null) {
       tmpString = $rootScope.activeUser.name;
+    }
     return tmpString;
   };
 
@@ -92,8 +93,7 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope', '$rootScope
   $scope.rootScopeUserId = function() {
     if ($rootScope.activeUser !== null) {
       return $rootScope.activeUser._id;
-    }
-    else
+    } else
       return '';
   };
 
@@ -115,12 +115,39 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope', '$rootScope
   $scope.currentFace = 'big-smile-800';
 
   $scope.$on('$viewContentLoaded', function() {
+    if ($location.path() === '/')
+      $scope.currentFace = 'big-smile-800';
+    else
+      $scope.currentFace = $scope.randomFace();
+  });
+
+  $scope.switchFace = function() {
     $scope.currentFace = $scope.randomFace();
-});
+  };
 
   $scope.em = 'santa@listmas.io';
 
+  $scope.getActiveName = function() {
+    $scope.activeName = $scope.activeUser();
+  };
 
+
+  $scope.saveUsername = function(newName) {
+    if ($rootScope.activeUser !== null) {
+      var tmpId = $rootScope.activeUser._id;
+      $http.post('/api/users/name/' + tmpId, {
+          name: newName
+        })
+        .success(function(data) {
+          console.log('changed name');
+        })
+        .error(function(data) {
+          console.log('error: ' + data);
+        });
+
+      $scope.getActiveUser();
+    }
+  };
 
 
 }]);
