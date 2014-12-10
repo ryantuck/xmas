@@ -1,21 +1,22 @@
 // Nav Controller
 
-angular.module('NavCtrl', []).controller('NavController', ['$scope','$rootScope','$location','$http',function($scope, $rootScope, $location, $http) {
+angular.module('NavCtrl', []).controller('NavController', ['$scope', '$rootScope', '$location', '$http', function($scope, $rootScope, $location, $http) {
 
   // create angular-side rootScope.activeUser variable
   $rootScope.activeUser = null;
-  $rootScope.loggedIn = false;    // probably don't need this variable!
+  $rootScope.loggedIn = false; // probably don't need this variable!
 
   // hook it up dog
-  var socket = io.connect('https://secret-dawn-8024.herokuapp.com');
-  
+  //var socket = io.connect('https://secret-dawn-8024.herokuapp.com');
+  var socket = io.connect('http://localhost');
+
   // runs upon connection - ensures we're hooked up
   socket.on('connection success', function(data) {
-      console.log("beep boop connected to server");
-      socket.emit('client connected', {
-          message: 'connected up in angular dog!'
-      });
-      $scope.getActiveUser();
+    console.log("beep boop connected to server");
+    socket.emit('client connected', {
+      message: 'connected up in angular dog!'
+    });
+    $scope.getActiveUser();
   });
 
   // triggers at interval defined on server side
@@ -54,8 +55,7 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope','$rootScope'
       .success(function(data) {
         if (data.message) {
           $rootScope.activeUser = null;
-        }
-        else {
+        } else {
           $rootScope.activeUser = data;
         }
       })
@@ -65,9 +65,9 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope','$rootScope'
   };
 
   // returns active user as string
-  $scope.activeUser = function () {
+  $scope.activeUser = function() {
     tmpString = 'not logged in';
-    if ($rootScope.activeUser)
+    if ($rootScope.activeUser !== null)
       tmpString = $rootScope.activeUser.name;
     return tmpString;
   };
@@ -79,6 +79,46 @@ angular.module('NavCtrl', []).controller('NavController', ['$scope','$rootScope'
     else
       return false;
   };
+
+  $scope.rootScopeUserIsFinalized = function() {
+    if ($rootScope.activeUser !== null) {
+      if ($rootScope.activeUser.finalized === true) {
+        return true;
+      }
+    } else
+      return false;
+  };
+
+  $scope.rootScopeUserId = function() {
+    if ($rootScope.activeUser !== null) {
+      return $rootScope.activeUser._id;
+    }
+    else
+      return '';
+  };
+
+
+  $scope.faces = [
+    'big-smile-800',
+    'o-front-800',
+    'o-left-800',
+    'o-right-800',
+    'smile-left-800',
+    'smile-right-800'
+  ];
+
+  $scope.randomFace = function() {
+    rdm = Math.floor(Math.random() * $scope.faces.length);
+    return $scope.faces[rdm];
+  };
+
+  $scope.currentFace = 'big-smile-800';
+
+  $scope.$on('$viewContentLoaded', function() {
+    $scope.currentFace = $scope.randomFace();
+});
+
+  $scope.em = 'santa@listmas.io';
 
 
 

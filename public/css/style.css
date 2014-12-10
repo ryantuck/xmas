@@ -1,11 +1,11 @@
 html {
-  min-height: 100%;
+  height: 100%;
 }
 body {
   padding-top: 220px;
   /*background: #bbb;*/
   
-  min-height: 100%;
+  height: 100%;
 }
 #working-present-list {
   cursor: ns-resize;
@@ -123,11 +123,31 @@ hr.candy-cane {
   border-top:5px red dashed;
 }
 
+.list-group-item {
+  margin: 10px 0;
+  background:#d6ffe6;
+}
 
+.published-present {
+  background: #bbb;
+}
 
+footer {
+  background:#f00;
+  width:100%;
+  height: 2em;
+}
 
+footer * {
+  color:white;
+}
 
-
+.wrapper, .push {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin:2em auto -2em;
+}
 
 
 

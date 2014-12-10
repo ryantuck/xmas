@@ -14,6 +14,7 @@ var userSchema = mongoose.Schema({
 	},
 	name: String,
 	finalized: Boolean,
+	brandNew: Boolean,
 	presents: [ {type: mongoose.Schema.ObjectId, ref: 'Present'} ]
 });
 
@@ -31,6 +32,7 @@ userSchema.methods.validPassword = function(password) {
 
 userSchema.methods.loadWithDefaultPresents = function() {
 	this.finalized = false;
+	this.brandNew = true;
 
 		var p1 = new Present();
 		p1.title = 'You!';
@@ -48,6 +50,11 @@ userSchema.methods.loadWithDefaultPresents = function() {
 		p1.index = 0;
 		p2.index = 1;
 		p3.index = 2;
+
+		p1.claimedBy = null;
+		p2.claimedBy = null;
+		p3.claimedBy = null;
+
 
 		var prez = [p1,p2,p3];
 

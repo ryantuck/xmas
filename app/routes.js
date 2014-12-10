@@ -48,6 +48,7 @@ module.exports = function(app, passport) {
         present.notes = req.body.notes;
         present.link = req.body.link;
         present.index = req.body.index;
+        present.published = req.body.published;
         present.save(function(err) {
           if (err) res.send(err);
           res.json({
@@ -155,6 +156,8 @@ module.exports = function(app, passport) {
         console.log('adding pId: ' + req.body.pId);
         user.presents.push(req.body.pId);
 
+        res.send(user);
+
         user.save(function(err) {
           if (err)
             console.log(err);
@@ -170,6 +173,22 @@ module.exports = function(app, passport) {
           res.send(err);
         res.json({
           message: 'user successfully deleted'
+        });
+      });
+    });
+
+    userRouter.route('/notnew/:user_id')
+    .post(function(req, res) {
+      User.findById(req.params.user_id, function(err, user) {
+        if (err)
+          console.log(err);
+        user.brandNew = false;
+        res.send(user);
+
+        user.save(function(err) {
+          if (err)
+            console.log(err);
+          console.log('user no longer new saved');
         });
       });
     });

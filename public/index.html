@@ -16,56 +16,56 @@
   <!-- JS -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="dist/js/app.min.js"></script>
+
+  <meta name="google-site-verification" content="UmECpFDQwQ0zSqNjCzZB1vJNSCvIJthdebxIshlMfBU" />
 </head>
 
 <body ng-app="sampleApp" ng-controller="NavController">
-  <!-- <div class="listmas-nav">
-  <div class="left-stuff">
-    <ul>
-      <li>My Presents</li>
-      <li>Log out</li>
-    </ul>
-  </div>
-  <div class="right-stuff">
-    <h2>Ho ho ho, welcome, Ryan Tuck!</h2>
-  </div>
+  <div class="wrapper">
 
-  <img src="img/BigSmile-800px.png" class="main-image">
-
-</div>
- -->
-
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <ul class="nav navbar-nav">
-      <li ng-class="{active: isActive('/presents')}" ng-show="rootScopeUserExists()">
-        <a href="/presents">My Presents</a>
-      </li>
-    </ul>
-    <img src="img/BigSmile-800px.png" class="main-image">
-
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <p class="navbar-text" ng-show="rootScopeUserExists()">
-          Ho ho ho, welcome, {{activeUser()}}!
-        </p>
-        <li ng-click="logOut()" ng-show="rootScopeUserExists()">
-          <a href="#">Log out</a>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <ul class="nav navbar-nav">
+        <li ng-class="{active: isActive('/presents')}" ng-show="rootScopeUserExists()">
+          <a href="/presents">My Presents</a>
+        </li>
+        <li ng-class="{active: isActive('/list/{{ rootScopeUserId() }}')}" ng-show="rootScopeUserIsFinalized()">
+          <a href="/list/{{ rootScopeUserId() }}">My List</a>
         </li>
       </ul>
-    </div>
-  </nav>
+      <img src="img/{{currentFace}}.png" class="main-image">
 
-  <div class="container">
-
-    <!-- HEADER -->
-
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text" ng-show="rootScopeUserExists()">
+            Ho ho ho, welcome, {{activeUser()}}!
+          </p>
+          <li ng-click="logOut()" ng-show="rootScopeUserExists()">
+            <a href="#">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
     <div class="container">
 
-      <!-- ANGULAR DYNAMIC CONTENT -->
-      <div ng-view autoscroll="true"></div>
+      <!-- HEADER -->
+
+
+      <div class="container">
+
+        <!-- ANGULAR DYNAMIC CONTENT -->
+        <div ng-view autoscroll="true"></div>
+      </div>
     </div>
+    <div class="push"></div>
   </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="center-block" style="text-align:center">
+        <p>{{ em }}</p>
+      </div>
+    </div>
+  </footer>
 </body>
 
 </html>

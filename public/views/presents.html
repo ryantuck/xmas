@@ -9,10 +9,12 @@
     <div class="col-lg-4">
       <h3>Add a Present</h3>
       <p>Your present will be added to the bottom of the list.</p>
-      <hr>
+
+
+      <hr class="candy-cane">
 
       <!-- Form -->
-      <form role="form" name="presentForm" ng-submit="addPresentFromForm()" novalidate>
+      <form role="form" name="presentForm" ng-submit="addPresentFromForm(); presentForm.$setPristine()" novalidate>
 
         <!-- title -->
         <div class="form-group">
@@ -30,20 +32,36 @@
         <div class="form-group">
           <label for="newPresentLink">Link</label>
           <input type="url" name="link" id="newPresentLink" ng-model="newPresentLink" class="form-control" placeholder="http://www.amazon.com/...">
+          <p ng-show="presentForm.link.$invalid && !presentForm.link.$pristine" style="color:gray">don't forget the 'http://'</p>
         </div>
+
         <button type="submit" class="btn btn-success btn-block" ng-disabled="presentForm.$invalid">
           Add to List! <i class="fa fa-plus"></i>
         </button>
 
       </form>
 
-      <hr>
+      <hr class="candy-cane">
 
       <!-- Finished Check -->
-      <h3>Finished?</h3>
-      <p>Once your list is ready, publish it and share with friends and family!</p>
-      <p>Note: once you publish your list, you <strong>won't be able to make any further changes</strong>. Be sure you've remembered everything. </p>
-      <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Finished Editing <i class="fa fa-check"></i></button>
+      <div ng-hide="userIsFinalized()">
+        <h3>Finished?</h3>
+        <p>Once your list is ready, publish it and share with friends and family!</p>
+        <p>Note: once you publish your list, you <strong>won't be able to make any further changes</strong>. Be sure you've remembered everything. </p>
+        <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Finished Editing <i class="fa fa-check"></i>
+        </button>
+      </div>
+
+      <div ng-show="userIsFinalized()">
+        <h3>Publish more Presents?</h3>
+        <p>Any new presents added here need to be published to your already-existing list for others to see and claim them.</p>
+        <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Publish More Presents <i class="fa fa-check"></i>
+        </button>
+      </div>
+
+
+      <hr>
+      <button class="btn btn-default btn-block" data-toggle="modal" data-target="#introModal">Help</button>
 
     </div>
 
@@ -52,18 +70,18 @@
 
       <h3>My List | {{totalPresents()}}</h3>
       <p>Drag presents to reorder. Feel free to edit and delete.</p>
-      <hr>
+      <hr class="candy-cane">
 
       <!-- List of presents! -->
       <ul id="working-present-list" ui-sortable="sortableOptions" ng-model="presents" class="list-group">
 
         <!-- specific present -->
-        <li class="list-group-item" ng-repeat="present in presents">
+        <li class="list-group-item" ng-repeat="present in presents" ng-class="{ 'published-present': present.published }">
           <div class="row">
 
             <!-- Index -->
             <div class="col-lg-1">
-              <h1 style="color:#c30">{{$index + 1}}</h1>
+              <h1 style="color:#f00">{{$index + 1}}</h1>
             </div>
 
             <!-- Details -->
@@ -72,7 +90,7 @@
                 <h3>{{present.title}}</h3>
                 <p>{{present.notes}}</p>
                 <div ng-show="present.link">
-                <a href="{{present.link}}" target="_blank">link <i class="fa fa-external-link"></i></a>
+                  <a href="{{present.link}}" target="_blank">link <i class="fa fa-external-link"></i></a>
                 </div>
               </div>
 
@@ -98,7 +116,7 @@
             </div>
 
             <!-- buttons -->
-            <div class="col-lg-2">
+            <div class="col-lg-2" ng-hide="present.published">
 
               <!-- default -->
               <div ng-hide="editing == $index">
@@ -106,17 +124,17 @@
 
                   <!-- edit -->
                   <div class="btn-group">
-                  <button class="close" ng-click="openEditDialog($index)">
-                    <i class="fa fa-edit"></i>
-                  </button>
+                    <button class="close" ng-click="openEditDialog($index)">
+                      <i class="fa fa-edit"></i>
+                    </button>
                   </div>
 
 
                   <!-- delete -->
                   <div class="btn-group">
-                  <button class="close" ng-click="deletePresent($index)">
-                    <i class="fa fa-close"  ></i>
-                  </button>
+                    <button class="close" ng-click="deletePresent($index)">
+                      <i class="fa fa-close"></i>
+                    </button>
                   </div>
 
                 </div>
@@ -128,16 +146,16 @@
 
                   <!-- save -->
                   <div class="btn-group">
-                  <button class="close" ng-click="updatePresent($index)">
-                    <i class="fa fa-check" style="color:green"></i>
-                  </button>
+                    <button class="close" ng-click="updatePresent($index)">
+                      <i class="fa fa-check" style="color:green"></i>
+                    </button>
                   </div>
 
                   <!-- discard -->
                   <div class="btn-group">
-                  <button class="close" ng-click="clearEditing()">                    
-                    <i class="fa fa-close" style="color:red"></i>
-                  </button>
+                    <button class="close" ng-click="clearEditing()">
+                      <i class="fa fa-close" style="color:red"></i>
+                    </button>
                   </div>
 
                 </div>
@@ -152,26 +170,95 @@
     </div>
   </div>
 
-    <!-- Finalize Modal -->
+  <!-- Finalize Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="myModalLabel">Publish List</h4>
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel" ng-hide="userIsFinalized()">Publish List</h4>
+          <h4 class="modal-title" id="myModalLabel" ng-show="userIsFinalized()">Publish Additional Presents</h4>
         </div>
         <div class="modal-body">
-          <p>Santa's made his list and checked it twice. Now it's your turn. </p>
-          <p>Be sure to sort, add links, and anything else before submitting. You won't be able to edit your list once you finalize and share it!</p>
-          <p>Once published, you won't be able to edit. This is so grandma doesn't go get you that nice bottle of scotch you said you wanted but later changed your mind on. </p>
+          <div ng-hide="userIsFinalized()">
+            <p>Santa's made his list and checked it twice. Now it's your turn. </p>
+            <p>Be sure to sort, add links, and anything else before submitting. You won't be able to edit your list once you finalize and share it!</p>
+            <p>Once published, you won't be able to edit. This is so grandma doesn't go get you that nice bottle of scotch you said you wanted but later changed your mind on. </p>
+          </div>
+          <div ng-show="userIsFinalized()">
+            <p>Publishing these presents will add them to your already-existing list.</p>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success" ng-click="finalizeUser()">Publish <span class="glyphicon glyphicon-ok"></span></button>
+          <button type="button" class="btn btn-success" ng-click="finalizeUser()">Publish <span class="glyphicon glyphicon-ok"></span>
+          </button>
         </div>
       </div>
     </div>
   </div>
 
+
+  <div class="modal fade" ng-class="{'in': needsModal === true, 'blockModal' : needsModal === true }" id="introModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 ng-show="step === 0">Welcome!</h3>
+          <h3 ng-show="step === 1">Your List</h3>
+          <h3 ng-show="step === 2">Adding Presents</h3>
+          <h3 ng-show="step === 3">Publishing Your List</h3>
+          <h3 ng-show="step === 4">Your Published List</h3>
+          <h3 ng-show="step === 5">Have fun!</h3>
+        </div>
+
+        <div class="modal-body">
+          <div ng-show="step === 0">
+            <p><strong>Ho ho ho! Welcome to your christmas list!</strong>
+            </p>
+            <p>Click 'next' to take a look around.</p>
+          </div>
+          <div ng-show="step === 1">
+            <p>This is your current list. You can drag items to re-order them, and edit or delete using the buttons on the right of each item.</p>
+            <p>We've added a few examples to get you up to speed. Go ahead and delete them once you get started.</p>
+            <img src="img/list-ex.jpg" style="max-width:80%" class="center-block">
+          </div>
+          <div ng-show="step === 2">
+            <p>You can add as many presents as you like.</p>
+            <p>Although Santa would just know the size, color, or exact model of whatever you want, you might want to add a note or link to help your friends and family out.</p>
+            <img src="img/add-ex.jpg" style="max-width:80%" class="center-block">
+          </div>
+          <div ng-show="step === 3">
+            <p><strong>Here's the important part</strong>
+            </p>
+            <p>Once you've made your list and checked it twice, publish it to share with your friends and family.</p>
+            <p>Be careful! You won't be able to change your list once it's published.</p>
+            <img src="img/publish-ex.jpg" style="max-width:80%" class="center-block">
+          </div>
+          <div ng-show="step === 4">
+            <p>You can share your public list using the link found on your completed list's page. </p>
+            <p>Others can view your list and claim presents they want to get you. Anyone else viewing your list will see these items as already claimed.</p>
+            <img src="img/claim-ex.jpg" style="max-width:80%" class="center-block">
+            <p>Now, of course, <strong>you won't see whether anything on your list has been claimed</strong>, saving the surprise until Christmas rolls around!</p>
+          </div>
+          <div ng-show="step === 5">
+            <p>That's it! You can pull these instructions up any time using the 'help' button.</p>
+            <p>If you have any questions or concerns, email us at {{ helpEmail }} and we'll make things right.</p>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal" ng-click="step = 0; needsModal = false">Close</button>
+          <button class="btn btn-primary" ng-click="backStep()" ng-hide="step === 5 || step === 0"><i class="fa fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" ng-click="nextStep()" ng-hide="step === 5">Next <i class="fa fa-arrow-right"></i>
+          </button>
+          <button class="btn btn-success" data-dismiss="modal" ng-click="step = 0; needsModal = false" ng-show="step === 5">Got it! <i class="fa fa-check"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 </div>
