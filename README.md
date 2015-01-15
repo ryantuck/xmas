@@ -2,36 +2,33 @@
 
 A wedding registry for christmas gifts. It's like actually sending a christmas list to Santa. Except Santa is your friends and family.
 
+This app went live for Christmas 2014 and was thoroughly successful. It's my first full-stack javascript web-app I've ever built, and I'm proud of it. 
+
 ---
 
 ### Bugs
 
 - if a user just signs up, and then tries to access a different list, the app will crash because it can't find the user_id provided in the http request. Odd that this would happen, especially if it *should* be able to find the user. 
-- if a person deletes all items on his list, it will reset to the original 5. I understand why this is happening, but is it behavior that we want?
 
 
 ### TODO
 
-- form validation
-- CSS
-- clean up garbage
-- copy
-- home page!
+- port to general-use birthday / registry list app.
 
 
 ### Design Considerations
 
 - add user name to user model? 
 - allow list naming? could be fun.
-- merge login, signup, and home into one page? almost certainly.
+- home page should allow automatic interaction.
 - social share buttons?
-- social login? nah. 
+- social login? maybe!
 - incorporate mailchimp or something? nodemailer seems like a good option, along with sendgrid.
 
 
 ### Optimizations
 
-- convert a lot of stuff to socket.io communication instead of http requests. 
+- convert a lot of stuff to socket.io communication instead of http requests (except socket doesn't play nice with heroku). 
 
 
 
